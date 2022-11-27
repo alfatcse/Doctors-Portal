@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom';
 
 const Navbar = () => {
     const manuItems = <React.Fragment>
-        <li><Link className='font-bold' to='/'>Home</Link></li>
-        <li><Link className='font-bold' to='/appointment'>Appointment</Link></li>
-        <li><Link className='font-bold' to='/about'>About</Link></li>
-        <li><Link className='font-bold' to='/reviews'>Reviews</Link></li>
-        <li><Link className='font-bold' to='/login'>Login</Link></li>
+        <li><Link className='font-bold rounded-lg' to='/'>Home</Link></li>
+        <li><Link className='font-bold rounded-lg' to='/appointment'>Appointment</Link></li>
+        <li><Link className='font-bold rounded-lg' to='/about'>About</Link></li>
+        <li><Link className='font-bold rounded-lg' to='/reviews'>Reviews</Link></li>
+        <li><Link className='font-bold rounded-lg' to='/login'>Login</Link></li>
     </React.Fragment>
     return (
         <div className="navbar bg-base-100 flex justify-between">
