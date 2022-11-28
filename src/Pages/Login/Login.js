@@ -1,21 +1,35 @@
 import React, { useContext, useState } from 'react';
 import { useForm } from "react-hook-form";
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthProvider';
 
 const Login = () => {
     const { register, formState: { errors }, handleSubmit } = useForm();
-    const { signIn } = useContext(AuthContext);
+    const { signIn, signInWithGoogle } = useContext(AuthContext);
     const [loginError, setloginError] = useState('');
+    const location = useLocation();
+    const navigate = useNavigate();
+    const from = location.state?.from || '/';
     const handleLogin = (data) => {
         console.log(data);
         setloginError('');
         signIn(data.email, data.password)
             .then(result => {
                 console.log(result.user);
+                navigate(from, { replace: true })
             })
             .catch(e => {
                 console.error(e.message);
+                setloginError(e.message);
+            })
+    }
+    const hadleGoogleSignin = () => {
+        setloginError('');
+        signInWithGoogle().then(result => {
+            console.log(result.user);
+        })
+            .catch(e => {
+                console.log(e)
                 setloginError(e.message);
             })
     }
@@ -48,13 +62,13 @@ const Login = () => {
                     <input className='btn w-full btn-accent' value="Log In" type="submit" />
                     <div>
                         {
-                            loginError&& <p className='text-red-500'>{loginError}</p>
+                            loginError && <p className='text-red-500'>{loginError}</p>
                         }
                     </div>
                 </form>
                 <p>New to Doctors Portal <Link className='text-primary' to="/signup">Create New Account</Link></p>
                 <div className="divider">OR</div>
-                <button className='btn btn-outline w-full'>CONTINUE WITH GOOGLE</button>
+                <button onClick={hadleGoogleSignin} className='btn btn-outline w-full'>CONTINUE WITH GOOGLE</button>
             </div>
         </div>
     );

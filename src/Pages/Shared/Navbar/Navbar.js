@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../Context/AuthProvider';
 
 const Navbar = () => {
-    const { user,LogOut } = useContext(AuthContext);
-    const handlogout=()=>{
-        LogOut().then(()=>{}).catch(e=>console.error(e))
+    const { user, LogOut } = useContext(AuthContext);
+    const handlogout = () => {
+        LogOut().then(() => { }).catch(e => console.error(e))
     }
     const manuItems = <React.Fragment>
         <li><Link className='font-bold rounded-lg' to='/'>Home</Link></li>
@@ -14,7 +14,11 @@ const Navbar = () => {
         <li><Link className='font-bold rounded-lg' to='/reviews'>Reviews</Link></li>
         {
             user?.uid ?
-                <li> <button onClick={handlogout} className='font-bold rounded-lg' to='/login'>Sign out</button></li>
+                <>
+                    <li><Link className='font-bold rounded-lg' to="/dashboard">DashBoard</Link></li>
+                    <li> <button onClick={handlogout} className='font-bold rounded-lg' to='/login'>Sign out</button></li>
+                </>
+
                 :
                 <li><Link className='font-bold rounded-lg' to='/login'>Login</Link></li>
         }

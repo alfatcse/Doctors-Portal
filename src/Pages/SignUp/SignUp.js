@@ -1,19 +1,28 @@
-import { da } from 'date-fns/locale';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthProvider';
+import { toast } from 'react-hot-toast';
 const SignUp = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const {createUser}=useContext(AuthContext);
-
+    const { createUser, updateUser } = useContext(AuthContext);
+    const [signUpError, setSignUpError] = useState();
     const submitHandler = (data) => {
         console.log(data);
-        createUser(data.email,data.password)
-        .then(result=>{
-            console.log(result.user);
-        })
-        .catch(error=>console.log(error))
+        setSignUpError('');
+        createUser(data.email, data.password)
+            .then(result => {
+                console.log(result.user);
+                toast.success('User Created');
+                const userinfo = {
+                    displayName: data.name
+                }
+                updateUser(userinfo).then(() => { }).catch(e => console.error(e))
+            })
+            .catch(error => {
+                console.log(error)
+                setSignUpError(error.message);
+            })
     }
     return (
         <div className='h-[800px] flex justify-center items-center'>
@@ -44,9 +53,12 @@ const SignUp = () => {
                             pattern: { value: /(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]/, message: "Password must be UpperCase and Special character" }
                         })} className="input input-bordered w-full max-w-xs" />
                         {errors.password && <p className='text-red-500'>{errors.password.message}</p>}
-                        
+
                     </div>
                     <input className='btn mt-5 w-full btn-accent' value="Sign Up" type="submit" />
+                    {
+                        signUpError&&<p className='text-red-500'>{signUpError}</p>
+                    }
                 </form>
                 <p className='mt-5'>Already have an Account<Link className='text-primary' to="/login"> Please log In</Link></p>
                 <div className="divider">OR</div>
