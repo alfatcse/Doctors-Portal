@@ -35,12 +35,11 @@ const SignUp = () => {
                             pattern: { value: /(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]/, message: "Password must be Strong" }
                         })} className="input input-bordered w-full max-w-xs" />
                         {errors.password && <p className='text-red-500'>{errors.password.message}</p>}
-                        <label className="label">
-                        </label>
+                        
                     </div>
-                    <input className='btn w-full btn-accent' value="Sign Up" type="submit" />
+                    <input className='btn mt-5 w-full btn-accent' value="Sign Up" type="submit" />
                 </form>
-                <p>Already have an Account<Link className='text-primary' to="/login"> Please log In</Link></p>
+                <p className='mt-5'>Already have an Account<Link className='text-primary' to="/login"> Please log In</Link></p>
                 <div className="divider">OR</div>
                 <button className='btn btn-outline w-full'>CONTINUE WITH GOOGLE</button>
             </div>
