@@ -5,7 +5,7 @@ import { AuthContext } from '../../Context/AuthProvider';
 import { toast } from 'react-hot-toast';
 const SignUp = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const { createUser, updateUser } = useContext(AuthContext);
+    const { createUser, updateUser,signInWithGoogle } = useContext(AuthContext);
     const [signUpError, setSignUpError] = useState();
     const submitHandler = (data) => {
         console.log(data);
@@ -22,6 +22,20 @@ const SignUp = () => {
             .catch(error => {
                 console.log(error)
                 setSignUpError(error.message);
+            })
+    }
+    const hadleGoogleSignin=()=>{
+        setSignUpError('');
+        signInWithGoogle().then(result => {
+            console.log(result.user);
+            const userinfo = {
+                displayName: result.name
+            }
+            updateUser(userinfo).then(() => { }).catch(e => console.error(e))
+        })
+            .catch(e => {
+                console.log(e)
+                setSignUpError(e.message);
             })
     }
     return (
@@ -62,7 +76,7 @@ const SignUp = () => {
                 </form>
                 <p className='mt-5'>Already have an Account<Link className='text-primary' to="/login"> Please log In</Link></p>
                 <div className="divider">OR</div>
-                <button className='btn btn-outline w-full'>CONTINUE WITH GOOGLE</button>
+                <button onClick={hadleGoogleSignin} className='btn btn-outline w-full'>CONTINUE WITH GOOGLE</button>
             </div>
         </div>
     );
