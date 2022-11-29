@@ -24,7 +24,7 @@ const AuthProvider = ({ children }) => {
         return signInWithPopup(auth,googleAuth);
     }
     const updateUser=(userInfo)=>{
-        return updateProfile(user,userInfo);
+        return updateProfile(auth.currentUser,userInfo);
     }
     useEffect(()=>{
        const unsubscribe= onAuthStateChanged(auth,currentUser=>{
