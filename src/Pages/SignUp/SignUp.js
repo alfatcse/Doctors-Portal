@@ -39,7 +39,7 @@ const SignUp = () => {
             })
     }
     return (
-        <div className='h-[800px] flex justify-center items-center'>
+        <div data-theme="light" className='h-[800px] flex justify-center items-center'>
             <div className='w-96 p-7'>
                 <h1 className='text-3xl text-center font-bold'>Sign Up</h1>
                 <form onSubmit={handleSubmit(submitHandler)}>
