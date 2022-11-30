@@ -10,6 +10,6 @@ const Appointment = () => {
             <AvailableAppointment selectedDate={selectedDate}></AvailableAppointment>
         </div>
     );
-};
+}; 
 
 export default Appointment;

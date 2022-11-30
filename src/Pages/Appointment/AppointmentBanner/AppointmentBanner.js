@@ -17,7 +17,7 @@ const AppointmentBanner = ({ setSelectedDate, selectedDate }) => {
                         />
                     </div>
                 </div>
-            </div>
+            </div> 
         </header>
     );
 };

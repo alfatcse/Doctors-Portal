@@ -1,4 +1,4 @@
-import React, {  useState } from 'react';
+import React, {  useContext, useState } from 'react';
 import { format } from 'date-fns';
 import AppointOption from './AppointOption';
 import BookingModal from '../BookingModal/BookingModal';
@@ -24,7 +24,7 @@ const AvailableAppointment = ({ selectedDate }) => {
     // useEffect(() => {
     //     fetch('http://localhost:5006/appointmentOptions')
     //         .then(res => res.json())
-    //         .then(data => setappointmentOptions(data))
+    //         .then(data => setappointmentOptions(data)) 
     // }, [])
     return (
         <section className='mt-16'>

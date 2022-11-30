@@ -1,11 +1,14 @@
 import { format } from 'date-fns';
 import React, { useContext } from 'react';
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../Context/AuthProvider';
 
-const BookingModal = ({ treatment, selectedDate, setTreatment,refetch }) => {
+const BookingModal = ({ treatment, selectedDate, setTreatment, refetch }) => {
     const { name, slots } = treatment;
     const { user } = useContext(AuthContext);
+    // console.log('User name::',user.displayName);
+    const navigate=useNavigate();
     const handleBooking = (event) => {
         event.preventDefault();
         const form = event.target;
@@ -23,26 +26,32 @@ const BookingModal = ({ treatment, selectedDate, setTreatment,refetch }) => {
         }
         //todo :: send data to the server and once data is saved and close modal
         // display toast
-        fetch('http://localhost:5006/bookings', {
-            method: 'POST',
-            headers: {
-                'content-type': 'application/json'
-            },
-            body: JSON.stringify(booking)
-        })
-            .then(res => res.json())
-            .then(data => {
-                console.log(data);
-                setTreatment(null);
-                if (data.acknowledged) {
-                    toast.success('Booking Confirmed');
-                    refetch();
-                }
-                else{
-                    toast.error(data.message);
-                    
-                }
+        if (user) {
+            fetch('http://localhost:5006/bookings', {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify(booking)
             })
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data);
+                    setTreatment(null);
+                    if (data.acknowledged) {
+                        toast.success('Booking Confirmed');
+                        refetch();
+                    }
+                    else {
+                        toast.error(data.message);
+
+                    }
+                })
+        }
+        else{
+            console.log('No userrr');
+            navigate('/login');
+        }
         console.log(booking);
     }
     return (
