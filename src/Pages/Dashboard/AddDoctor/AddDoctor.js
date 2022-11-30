@@ -10,14 +10,20 @@ const AddDoctor = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const imageHostKey = process.env.REACT_APP_imgbb_key;
     const formData = new FormData();
-    const navigate=useNavigate();
+    const navigate = useNavigate();
     const { data: specialties, isLoading } = useQuery({
         queryKey: ['specialty'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5006/appointmentSpecialty');
-            const data = await res.json();
-            console.log(data);
-            return data;
+            try {
+                const res = await fetch('http://localhost:5006/appointmentSpecialty');
+                const data = await res.json();
+                console.log(data);
+                return data;
+            }
+            catch (e) {
+                console.log(e);
+            }
+
         }
     })
     const handleAddDoctor = (data) => {
@@ -33,27 +39,27 @@ const AddDoctor = () => {
             .then(imgData => {
                 if (imgData.success) {
                     console.log(imgData.data.url);
-                    const doctor={
-                        name:data.name,
-                        email:data.email,
-                        specialty:data.specialty,
-                        image:imgData.data.url
+                    const doctor = {
+                        name: data.name,
+                        email: data.email,
+                        specialty: data.specialty,
+                        image: imgData.data.url
                     }
                     //save doctor profile to database
-                    fetch('http://localhost:5006/doctors',{
-                        method:'POST',
-                        headers:{
-                            'content-type':'application/json',
-                            authorization:`bearer ${localStorage.getItem('accessToken')}`
+                    fetch('http://localhost:5006/doctors', {
+                        method: 'POST',
+                        headers: {
+                            'content-type': 'application/json',
+                            authorization: `bearer ${localStorage.getItem('accessToken')}`
                         },
-                        body:JSON.stringify(doctor)
-                    }) 
-                    .then(res=>res.json())
-                    .then(result=>{
-                        console.log(result);
-                        toast.success(`${data.name} is added Successfully`);
-                        navigate('/dashboard/managedoctors');
+                        body: JSON.stringify(doctor)
                     })
+                        .then(res => res.json())
+                        .then(result => {
+                            console.log(result);
+                            toast.success(`${data.name} is added Successfully`);
+                            navigate('/dashboard/managedoctors');
+                        })
                 }
             })
     }
