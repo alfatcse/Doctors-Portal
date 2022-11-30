@@ -13,7 +13,10 @@ const Allusers = () => {
     })
     const handleMakeAdmin = (id) => {
         fetch(`http://localhost:5006/users/admin/${id}`, {
-            method: 'PUT'
+            method: 'PUT',
+            headers:{
+                authorization:`bearer ${localStorage.getItem('accessToken')}`
+            }
         })
             .then(res => res.json())
             .then(data => {
