@@ -5,12 +5,18 @@ import { AuthContext } from '../../Context/AuthProvider';
 import { toast } from 'react-hot-toast';
 import { data } from 'autoprefixer';
 import { da } from 'date-fns/locale';
+import useToken from '../../Hooks/useToken';
 
 const SignUp = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const { createUser, updateUser, signInWithGoogle } = useContext(AuthContext);
     const [signUpError, setSignUpError] = useState();
+    const [createdUserEmail, setCreatedUserEmail] = useState('');
+    const [token] = useToken(createdUserEmail);
     const navigate = useNavigate();
+    if(token){
+        navigate('/');
+    }
     const submitHandler = (data) => {
         // console.log(data);
         setSignUpError('');
@@ -55,17 +61,7 @@ const SignUp = () => {
         }).then(res => res.json())
             .then(data => {
                 console.log(data);
-                getUserToken(email);
-            })
-    }
-    const getUserToken = (email) => {
-        fetch(`http://localhost:5006/jwt?email=${email}`)
-            .then(res => res.json())
-            .then(data => {
-                if (data.accessToken) {
-                    localStorage.setItem('accessToken', data.accessToken);
-                    navigate('/');
-                }
+                setCreatedUserEmail(email);
             })
     }
     return (
@@ -91,7 +87,7 @@ const SignUp = () => {
                         <label className="label">
                             <span className="label-text">Password</span>
                         </label>
-                        <input type="password" {...register("password", {
+                        <input type="text" {...register("password", {
                             required: "Password is Required",
                             minLength: { value: 6, message: "Password must be 6 character long" },
                             pattern: { value: /(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]/, message: "Password must be UpperCase and Special character" }
