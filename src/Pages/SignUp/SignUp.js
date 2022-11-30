@@ -3,14 +3,16 @@ import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthProvider';
 import { toast } from 'react-hot-toast';
+import { data } from 'autoprefixer';
+import { da } from 'date-fns/locale';
 
 const SignUp = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const { createUser, updateUser,signInWithGoogle } = useContext(AuthContext);
+    const { createUser, updateUser, signInWithGoogle } = useContext(AuthContext);
     const [signUpError, setSignUpError] = useState();
-    const navigate=useNavigate();
+    const navigate = useNavigate();
     const submitHandler = (data) => {
-       // console.log(data);
+        // console.log(data);
         setSignUpError('');
         createUser(data.email, data.password)
             .then(result => {
@@ -20,15 +22,15 @@ const SignUp = () => {
                     displayName: data.name
                 }
                 updateUser(userinfo).then(() => {
-                    navigate('/');
-                 }).catch(e => console.error(e))
+                    saveUser(data.name, data.email);
+                }).catch(e => console.error(e))
             })
             .catch(error => {
                 console.log(error)
                 setSignUpError(error.message);
             })
     }
-    const hadleGoogleSignin=()=>{
+    const hadleGoogleSignin = () => {
         setSignUpError('');
         signInWithGoogle().then(result => {
             console.log(result.user);
@@ -40,6 +42,30 @@ const SignUp = () => {
             .catch(e => {
                 console.log(e)
                 setSignUpError(e.message);
+            })
+    }
+    const saveUser = (name, email) => {
+        const user = { name, email };
+        fetch('http://localhost:5006/users', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        }).then(res => res.json())
+            .then(data => {
+                console.log(data);
+                getUserToken(email);
+            })
+    }
+    const getUserToken = (email) => {
+        fetch(`http://localhost:5006/jwt?email=${email}`)
+            .then(res => res.json())
+            .then(data => {
+                if (data.accessToken) {
+                    localStorage.setItem('accessToken', data.accessToken);
+                    navigate('/');
+                }
             })
     }
     return (
@@ -75,7 +101,7 @@ const SignUp = () => {
                     </div>
                     <input className='btn mt-5 w-full btn-accent' value="Sign Up" type="submit" />
                     {
-                        signUpError&&<p className='text-red-500'>{signUpError}</p>
+                        signUpError && <p className='text-red-500'>{signUpError}</p>
                     }
                 </form>
                 <p className='mt-5'>Already have an Account<Link className='text-primary' to="/login"> Please log In</Link></p>
