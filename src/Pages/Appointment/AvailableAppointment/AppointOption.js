@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../Context/AuthProvider';
 
 const AppointOption = ({ option, setTreatment }) => {
-    const { name, slots } = option;
+    const { name, price,slots } = option;
     const { user } = useContext(AuthContext);
     const navigate = useNavigate();
     const handleBooking = (op) => {
@@ -20,6 +20,7 @@ const AppointOption = ({ option, setTreatment }) => {
                 <h2 className="text-2xl text-secondary font-bold text-center">{name}</h2>
                 <p>{slots.length > 0 ? slots[0] : 'Try Another Day'}</p>
                 <p>{slots.length} {slots.length > 1 ? 'Spaces' : 'Space'} Available</p>
+                <p>Price: ${price}</p>
                 <div className="card-actions justify-center">
                     <label
                         onClick={() => handleBooking(option)}

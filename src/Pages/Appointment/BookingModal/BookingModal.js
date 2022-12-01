@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../Context/AuthProvider';
 
 const BookingModal = ({ treatment, selectedDate, setTreatment, refetch }) => {
-    const { name, slots } = treatment;
+    const { name, slots,price } = treatment;
     const { user } = useContext(AuthContext);
     // console.log('User name::',user.displayName);
     const navigate=useNavigate();
@@ -22,7 +22,8 @@ const BookingModal = ({ treatment, selectedDate, setTreatment, refetch }) => {
             slot,
             email,
             phone,
-            treatment: name
+            treatment: name,
+            price
         }
         //todo :: send data to the server and once data is saved and close modal
         // display toast

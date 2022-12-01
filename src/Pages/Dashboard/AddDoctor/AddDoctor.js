@@ -67,7 +67,7 @@ const AddDoctor = () => {
         return <Loading></Loading>
     }
     return (
-        <div className='w-96 p-7'>
+        <div className='w-96 p-7 mx-50'>
             <h1>Doc</h1>
             <form onSubmit={handleSubmit(handleAddDoctor)}>
                 <div className="form-control w-full max-w-xs">
@@ -99,7 +99,7 @@ const AddDoctor = () => {
                     <label className="label">
                         <span className="label-text">Photo</span>
                     </label>
-                    <input type="file" {...register("image", { required: "Name is required" })} className="input input-bordered w-full max-w-xs" />
+                    <input type="file"  {...register("image", { required: "Image is required" })} />
                     {errors.img && <p className='text-red-600'>{errors.img.message}</p>}
                 </div>
                 <input className='btn mt-5 w-full btn-accent' value="Add Doctor" type="submit" />
