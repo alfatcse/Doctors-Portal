@@ -3,15 +3,14 @@ import { useQuery } from '@tanstack/react-query';
 import { async } from '@firebase/util';
 import Loading from '../../Shared/Loading/Loading';
 import ConfirmationModal from '../../Shared/ConfirmationModal/ConfirmationModal';
+import toast from 'react-hot-toast';
 const ManageDoctors = () => {
     const [deletingDoctor, setDeletingDoctor] = useState(null);
-    const closeModal=()=>{
+    const closeModal = () => {
         setDeletingDoctor(null);
     }
-    const handleDeleteDoctor=(doctor)=>{
-           console.log(doctor);
-    }
-    const { data: doctors, isLoading } = useQuery({
+
+    const { data: doctors, isLoading, refetch } = useQuery({
         queryKey: ['doctors'],
         queryFn: async () => {
             try {
@@ -28,6 +27,20 @@ const ManageDoctors = () => {
             }
         }
     })
+    const handleDeleteDoctor = (doctor) => {
+        fetch(`http://localhost:5006/doctors/${doctor._id}`, {
+            method: 'DELETE',
+            headers: {
+                authorization: `bearer ${localStorage.getItem('accessToken')}`
+            }
+        }).then(res => res.json())
+            .then(data => {
+                if (data.deletedCount > 0) {
+                    toast.success('Doctor deleted Successfully');
+                    refetch();
+                }
+            })
+    }
     if (isLoading) {
         return <Loading></Loading>
     }
@@ -72,12 +85,13 @@ const ManageDoctors = () => {
                 </table>
             </div>
             {
-                deletingDoctor && <ConfirmationModal 
-                closeModal={closeModal} 
-                successAction={handleDeleteDoctor}
-                modalData={deletingDoctor}
-                title={'Are you sure?'} 
-                message={`he will ${deletingDoctor.name} deleted forever`}>
+                deletingDoctor && <ConfirmationModal
+                    closeModal={closeModal}
+                    successAction={handleDeleteDoctor}
+                    modalData={deletingDoctor}
+                    title={'Are you sure?'}
+                    successButtonName="Delete"
+                    message={`he will ${deletingDoctor.name} deleted forever`}>
                 </ConfirmationModal>
             }
         </div>
