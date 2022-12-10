@@ -11,12 +11,22 @@ const SignUp = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const { createUser, updateUser, signInWithGoogle } = useContext(AuthContext);
     const [signUpError, setSignUpError] = useState();
-    const [createdUserEmail, setCreatedUserEmail] = useState('');
+    const [createdUserEmail, setCreatedUserEmail] = useState('Patient');
     const [token] = useToken(createdUserEmail);
     const navigate = useNavigate();
-    if(token){
-        navigate('/');
-    }
+    const [value, setValue] = useState("");
+    const [inputBox, setInputBox] = useState(false);
+    const handleChange = (e) => {
+        setValue(e.target.value);
+        if (e.target.value === "Doctor") {
+            setInputBox(true);
+        } else {
+            setInputBox(false);
+        }
+    };
+    // if (token) {
+    //     navigate('/');
+    // }
     const submitHandler = (data) => {
         // console.log(data);
         setSignUpError('');
@@ -93,12 +103,20 @@ const SignUp = () => {
                             pattern: { value: /(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]/, message: "Password must be UpperCase and Special character" }
                         })} className="input input-bordered w-full max-w-xs" />
                         {errors.password && <p className='text-red-500'>{errors.password.message}</p>}
-
+                        <label className="label">
+                            <span className="label-text">Sign Up As</span>
+                        </label>
+                        <select value={value} className="select input-bordered w-full max-w-xs" onChange={handleChange}>
+                            <option value="Doctor">Doctor</option>
+                            <option value="Patient">Patient</option>
+                        </select>
+                        {inputBox ? <input type="text" placeholder="Lucy Text" rows={3} /> : null}
                     </div>
                     <input className='btn mt-5 w-full btn-accent' value="Sign Up" type="submit" />
                     {
                         signUpError && <p className='text-red-500'>{signUpError}</p>
                     }
+                   
                 </form>
                 <p className='mt-5'>Already have an Account<Link className='text-primary' to="/login"> Please log In</Link></p>
                 <div className="divider">OR</div>

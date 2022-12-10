@@ -92,7 +92,7 @@ const AddDoctor = () => {
                         {
                             specialties.map(specialty => <option value={specialty.name} key={specialty._id}>{specialty.name}</option>)
                         }
-                        <option>Svelte</option>
+                        <option onChange={console.log('ssss')}>Svelte</option>
                     </select>
                 </div>
                 <div className="form-control w-full max-w-xs">
