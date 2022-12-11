@@ -38,6 +38,9 @@ const SignUp = () => {
                     displayName: data.name
                 }
                 updateUser(userinfo).then(() => {
+                    if (inputBox) {
+                        console.log(data.name, data.email, data.registrationnumber, data.usertype);
+                    }
                     saveUser(data.name, data.email);
                 }).catch(e => console.error(e))
             })
@@ -75,7 +78,7 @@ const SignUp = () => {
             })
     }
     return (
-        <div data-theme="light" className='h-[800px] flex justify-center items-center'>
+        <div data-theme="light" className='h-[800px] flex justify-center items-center mb-2'>
             <div className='w-96 p-7'>
                 <h1 className='text-3xl text-center font-bold'>Sign Up</h1>
                 <form onSubmit={handleSubmit(submitHandler)}>
@@ -103,20 +106,35 @@ const SignUp = () => {
                             pattern: { value: /(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]/, message: "Password must be UpperCase and Special character" }
                         })} className="input input-bordered w-full max-w-xs" />
                         {errors.password && <p className='text-red-500'>{errors.password.message}</p>}
+                    </div>
+                    <div className="form-control w-full max-w-xs">
                         <label className="label">
                             <span className="label-text">Sign Up As</span>
                         </label>
-                        <select value={value} className="select input-bordered w-full max-w-xs" onChange={handleChange}>
-                            <option value="Doctor">Doctor</option>
+                        <select {...register("usertype", { required: "User Type is Required" })} value={value} className="select input-bordered w-full max-w-xs" onChange={handleChange}>
                             <option value="Patient">Patient</option>
+                            <option value="Doctor">Doctor</option>
                         </select>
-                        {inputBox ? <input type="text" placeholder="Lucy Text" rows={3} /> : null}
+                        {errors.usertype && <p className='text-red-500'>{errors.usertype.message}</p>}
+                        {inputBox ?
+                            <div>
+                                <label className="label">
+                                    <span className="label-text">Enter Your Registration Number</span>
+                                </label>
+                                <input type="number" {...register("registrationnumber", { required: "Registration Number is Required" })} className="input input-bordered w-full max-w-xs" />
+                                <label className="label">
+                                    <span className="label-text">Photo</span>
+                                </label>
+                                <input type="file"  {...register("image", { required: "Image is required" })} />
+                                {errors.img && <p className='text-red-600'>{errors.img.message}</p>}
+                            </div>
+                            : null}
+                        {errors.registrationnumber && <p className='text-red-500'>{errors.registrationnumber.message}</p>}
                     </div>
                     <input className='btn mt-5 w-full btn-accent' value="Sign Up" type="submit" />
                     {
                         signUpError && <p className='text-red-500'>{signUpError}</p>
                     }
-                   
                 </form>
                 <p className='mt-5'>Already have an Account<Link className='text-primary' to="/login"> Please log In</Link></p>
                 <div className="divider">OR</div>
