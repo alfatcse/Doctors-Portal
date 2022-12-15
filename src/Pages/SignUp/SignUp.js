@@ -66,13 +66,11 @@ const SignUp = () => {
     const hadleGoogleSignin = () => {
         setSignUpError('');
         signInWithGoogle().then(result => {
-            console.log(result.user);
+            console.log('user',result.user.displayName);
             const userinfo = {
                 displayName: result.name
             }
-            const userInfo_Google = {
-
-            }
+            saveUser(result.user.displayName,result.user.email,"Patient","no registration number",result.user.photoURL);
             updateUser(userinfo).then(() => { }).catch(e => console.error(e))
         })
             .catch(e => {

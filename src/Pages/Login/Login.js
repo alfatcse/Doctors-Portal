@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useContext, useState } from 'react';
 import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from 'react-router-dom';
@@ -33,7 +34,22 @@ const Login = () => {
     const hadleGoogleSignin = () => {
         setloginError('');
         signInWithGoogle().then(result => {
-            console.log(result.user);
+            console.log('emmmm', result.user.email);
+            axios.get(`http://localhost:5006/useremail?email=${result.user.email}`, {
+                method: 'GET',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify()
+            }).then(res => {
+                if(res.data.email)
+                {
+                    navigate(from, { replace: true })
+                }
+                else{
+                    setloginError('User not exist');
+                }
+            }).catch(e => console.log(e))
         })
             .catch(e => {
                 console.log(e)
