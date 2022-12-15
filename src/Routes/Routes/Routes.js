@@ -14,6 +14,8 @@ import AddDoctor from "../../Pages/Dashboard/AddDoctor/AddDoctor";
 import ManageDoctors from "../../Pages/Dashboard/ManageDoctors/ManageDoctors";
 import Payment from "../../Pages/Dashboard/Payment/Payment";
 import DisplayError from "../../Pages/Shared/DisplayError/DisplayError";
+import MySchedule from "../../Pages/Dashboard/DoctorDash/MySchedule";
+import MyPatient from "../../Pages/Dashboard/DoctorDash/MyPatient";
 const router = createBrowserRouter([
     {
         path: '/',
@@ -63,6 +65,14 @@ const router = createBrowserRouter([
                 path:'/dashboard/payment/:id',
                 loader:({params})=>fetch(`http://localhost:5006/booking/${params.id}`),
                 element:<Payment></Payment>
+            },
+            {
+                path:'/dashboard/myschedule',
+                element:<MySchedule></MySchedule>
+            },
+            {
+                path:'/dashboard/patient',
+                element:<MyPatient></MyPatient>
             }
         ]
     }

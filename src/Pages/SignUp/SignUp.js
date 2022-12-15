@@ -6,7 +6,7 @@ import { toast } from 'react-hot-toast';
 import { data } from 'autoprefixer';
 import { da } from 'date-fns/locale';
 import useToken from '../../Hooks/useToken';
-
+import { useQuery } from '@tanstack/react-query';
 const SignUp = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const { createUser, updateUser, signInWithGoogle } = useContext(AuthContext);
@@ -18,6 +18,21 @@ const SignUp = () => {
     const [inputBox, setInputBox] = useState(false);
     const formData = new FormData();
     const imageHostKey = process.env.REACT_APP_imgbb_key;
+    const { data: specialties, isLoading } = useQuery({
+        queryKey: ['specialty'],
+        queryFn: async () => {
+            try {
+                const res = await fetch('http://localhost:5006/appointmentSpecialty');
+                const data = await res.json();
+                console.log(data);
+                return data;
+            }
+            catch (e) {
+                console.log(e);
+            }
+
+        }
+    })
     const handleChange = (e) => {
         setValue(e.target.value);
         if (e.target.value === "Doctor") {
@@ -31,7 +46,6 @@ const SignUp = () => {
     // }
     const submitHandler = (data) => {
         console.log(data.usertype);
-
         const image = data.image[0];
         console.log(image);
         setSignUpError('');
@@ -53,7 +67,7 @@ const SignUp = () => {
                                 displayName: data.name
                             }
                             updateUser(userinfo).then(() => {
-                                saveUser(data.name, data.email, data.usertype, data.registrationnumber, imgData.data.url);
+                                saveUser(data.name, data.email, data.usertype, data?.registrationnumber, data?.specialty,imgData.data.url);
                             }).catch(e => console.error(e))
                         })
                         .catch(error => {
@@ -79,8 +93,8 @@ const SignUp = () => {
                 setSignUpError(e.message);
             })
     }
-    const saveUser = (name, email, role, registrationnumber, image) => {
-        const user = { name, email, role, registrationnumber, image };
+    const saveUser = (name, email, role, registrationnumber, specialty,image) => {
+        const user = { name, email, role, registrationnumber,specialty, image };
         console.log(user);
         fetch('http://localhost:5006/users', {
             method: 'POST',
@@ -147,8 +161,17 @@ const SignUp = () => {
                                 </label>
                                 <input type="number" {...register("registrationnumber", { required: "Registration Number is Required" })} className="input input-bordered w-full max-w-xs" />
                                 {errors.registrationnumber && <p className='text-red-500'>{errors.registrationnumber.message}</p>}
-
+                                <label className="label">
+                                    <span className="label-text">Please Select a Specialty</span>
+                                </label>
+                                <select {...register("specialty", { required: "Specialty is Required" })} className="select input-bordered w-full max-w-xs">
+                                    {
+                                        specialties.map(specialty => <option value={specialty.name} key={specialty._id}>{specialty.name}</option>)
+                                    }
+                                    <option onChange={console.log('ssss')}>Svelte</option>
+                                </select>
                             </div>
+
                             : null}
 
                     </div>

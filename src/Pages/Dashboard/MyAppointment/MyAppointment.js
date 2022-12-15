@@ -20,9 +20,9 @@ const MyAppointment = () => {
     })
     return (
         <div className="overflow-x-auto mb-5">
-            <h1>MY App</h1>
+            <h1 className='text-center font-bold mb-3 text-blue-600'>MY Appointment</h1>
             <table className="table w-full">
-                <thead>
+                <thead> 
                     <tr>
                         <th></th>
                         <th>Name</th>
