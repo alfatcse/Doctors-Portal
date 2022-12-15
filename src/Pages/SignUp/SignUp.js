@@ -30,7 +30,8 @@ const SignUp = () => {
     //     navigate('/');
     // }
     const submitHandler = (data) => {
-        console.log(data);
+        console.log(data.usertype);
+
         const image = data.image[0];
         console.log(image);
         setSignUpError('');
@@ -52,7 +53,7 @@ const SignUp = () => {
                                 displayName: data.name
                             }
                             updateUser(userinfo).then(() => {
-                                saveUser(data.name, data.email, data.usertype, data.registrationnumber,imgData.data.url);
+                                saveUser(data.name, data.email, data.usertype, data.registrationnumber, imgData.data.url);
                             }).catch(e => console.error(e))
                         })
                         .catch(error => {
@@ -66,11 +67,11 @@ const SignUp = () => {
     const hadleGoogleSignin = () => {
         setSignUpError('');
         signInWithGoogle().then(result => {
-            console.log('user',result.user.displayName);
+            console.log('user', result.user.displayName);
             const userinfo = {
                 displayName: result.name
             }
-            saveUser(result.user.displayName,result.user.email,"Patient","no registration number",result.user.photoURL);
+            saveUser(result.user.displayName, result.user.email, "Patient", "no registration number", result.user.photoURL);
             updateUser(userinfo).then(() => { }).catch(e => console.error(e))
         })
             .catch(e => {
@@ -78,8 +79,8 @@ const SignUp = () => {
                 setSignUpError(e.message);
             })
     }
-    const saveUser = (name, email, role, registrationnumber,image) => {
-        const user = { name, email, role, registrationnumber ,image};
+    const saveUser = (name, email, role, registrationnumber, image) => {
+        const user = { name, email, role, registrationnumber, image };
         console.log(user);
         fetch('http://localhost:5006/users', {
             method: 'POST',
@@ -123,6 +124,13 @@ const SignUp = () => {
                         })} className="input input-bordered w-full max-w-xs" />
                         {errors.password && <p className='text-red-500'>{errors.password.message}</p>}
                     </div>
+                    <div>
+                        <label className="label">
+                            <span className="label-text">Photo</span>
+                        </label>
+                        <input type="file"  {...register("image", { required: "Image is required" })} />
+                        {errors.img && <p className='text-red-600'>{errors.img.message}</p>}
+                    </div>
                     <div className="form-control w-full max-w-xs">
                         <label className="label">
                             <span className="label-text">Sign Up As</span>
@@ -139,11 +147,7 @@ const SignUp = () => {
                                 </label>
                                 <input type="number" {...register("registrationnumber", { required: "Registration Number is Required" })} className="input input-bordered w-full max-w-xs" />
                                 {errors.registrationnumber && <p className='text-red-500'>{errors.registrationnumber.message}</p>}
-                                <label className="label">
-                                    <span className="label-text">Photo</span>
-                                </label>
-                                <input type="file"  {...register("image", { required: "Image is required" })} />
-                                {errors.img && <p className='text-red-600'>{errors.img.message}</p>}
+
                             </div>
                             : null}
 
