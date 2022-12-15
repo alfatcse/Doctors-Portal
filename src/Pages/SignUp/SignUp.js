@@ -16,6 +16,8 @@ const SignUp = () => {
     const navigate = useNavigate();
     const [value, setValue] = useState("");
     const [inputBox, setInputBox] = useState(false);
+    const formData = new FormData();
+    const imageHostKey = process.env.REACT_APP_imgbb_key;
     const handleChange = (e) => {
         setValue(e.target.value);
         if (e.target.value === "Doctor") {
@@ -28,26 +30,38 @@ const SignUp = () => {
     //     navigate('/');
     // }
     const submitHandler = (data) => {
-        // console.log(data);
+        console.log(data);
+        const image = data.image[0];
+        console.log(image);
         setSignUpError('');
-        createUser(data.email, data.password)
-            .then(result => {
-                console.log(result.user);
-                toast.success('User Created');
-                const userinfo = {
-                    displayName: data.name
+        formData.append('image', image);
+        const url = `https://api.imgbb.com/1/upload?key=${imageHostKey}`;
+        fetch(url, {
+            method: 'POST',
+            body: formData
+        })
+            .then(res => res.json())
+            .then(imgData => {
+                if (imgData.success) {
+                    console.log(imgData.data.url);
+                    createUser(data.email, data.password)
+                        .then(result => {
+                            console.log(result.user);
+                            toast.success('User Created');
+                            const userinfo = {
+                                displayName: data.name
+                            }
+                            updateUser(userinfo).then(() => {
+                                saveUser(data.name, data.email, data.usertype, data.registrationnumber,imgData.data.url);
+                            }).catch(e => console.error(e))
+                        })
+                        .catch(error => {
+                            console.log(error)
+                            setSignUpError(error.message);
+                        })
                 }
-                updateUser(userinfo).then(() => {
-                    if (inputBox) {
-                        console.log(data.name, data.email, data.registrationnumber, data.usertype);
-                    }
-                    saveUser(data.name, data.email);
-                }).catch(e => console.error(e))
             })
-            .catch(error => {
-                console.log(error)
-                setSignUpError(error.message);
-            })
+
     }
     const hadleGoogleSignin = () => {
         setSignUpError('');
@@ -56,6 +70,9 @@ const SignUp = () => {
             const userinfo = {
                 displayName: result.name
             }
+            const userInfo_Google = {
+
+            }
             updateUser(userinfo).then(() => { }).catch(e => console.error(e))
         })
             .catch(e => {
@@ -63,8 +80,9 @@ const SignUp = () => {
                 setSignUpError(e.message);
             })
     }
-    const saveUser = (name, email) => {
-        const user = { name, email };
+    const saveUser = (name, email, role, registrationnumber,image) => {
+        const user = { name, email, role, registrationnumber ,image};
+        console.log(user);
         fetch('http://localhost:5006/users', {
             method: 'POST',
             headers: {
@@ -122,6 +140,7 @@ const SignUp = () => {
                                     <span className="label-text">Enter Your Registration Number</span>
                                 </label>
                                 <input type="number" {...register("registrationnumber", { required: "Registration Number is Required" })} className="input input-bordered w-full max-w-xs" />
+                                {errors.registrationnumber && <p className='text-red-500'>{errors.registrationnumber.message}</p>}
                                 <label className="label">
                                     <span className="label-text">Photo</span>
                                 </label>
@@ -129,7 +148,7 @@ const SignUp = () => {
                                 {errors.img && <p className='text-red-600'>{errors.img.message}</p>}
                             </div>
                             : null}
-                        {errors.registrationnumber && <p className='text-red-500'>{errors.registrationnumber.message}</p>}
+
                     </div>
                     <input className='btn mt-5 w-full btn-accent' value="Sign Up" type="submit" />
                     {
@@ -140,6 +159,7 @@ const SignUp = () => {
                 <div className="divider">OR</div>
                 <button onClick={hadleGoogleSignin} className='btn btn-outline w-full'>CONTINUE WITH GOOGLE</button>
             </div>
+            <p>{ }</p>
         </div>
     );
 };
