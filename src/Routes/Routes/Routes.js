@@ -16,6 +16,7 @@ import Payment from "../../Pages/Dashboard/Payment/Payment";
 import DisplayError from "../../Pages/Shared/DisplayError/DisplayError";
 import MySchedule from "../../Pages/Dashboard/DoctorDash/MySchedule";
 import MyPatient from "../../Pages/Dashboard/DoctorDash/MyPatient";
+import MakeSchedule from "../../Pages/Dashboard/DoctorDash/MakeSchedule";
 const router = createBrowserRouter([
     {
         path: '/',
@@ -73,6 +74,10 @@ const router = createBrowserRouter([
             {
                 path:'/dashboard/patient',
                 element:<MyPatient></MyPatient>
+            },
+            {
+                path:'/dashboard/newschedule',
+                element:<MakeSchedule></MakeSchedule>
             }
         ]
     }
