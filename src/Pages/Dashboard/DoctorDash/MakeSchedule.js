@@ -60,19 +60,23 @@ const MakeSchedule = () => {
         event.target.reset();
         event.currentTarget.disabled = true;
     }
+    const doctorDetails=[{
+        docEmail:user.email,
+        docName:user.displayName,
+        price:value,
+        slots: dateSlot
+    }]
     const handleSave = () => {
         const Slotdata = {
             serviceName: specialty,
-            name: user.displayName,
-            price: value,
-            slots: dateSlot
+            doctorDetail:doctorDetails,
         }
         console.log('slotdate', Slotdata);
         setDateSlot([]);
         setValue('');
         // navigate('/');
-        fetch('http://localhost:5006/addslot', {
-            method: 'POST',
+        fetch(`http://localhost:5006/addslot/${Slotdata.serviceName}`, {
+            method: 'PUT',
             headers: {
                 'content-type': 'application/json',
             },
@@ -145,4 +149,12 @@ const MakeSchedule = () => {
 };
 
 export default MakeSchedule;
-//
+//{
+//     doctorDetail:[
+//         {
+//          $set:{
+//              docName:'rony'
+//          }
+//         }
+//       ]
+//  }
