@@ -8,6 +8,7 @@ const MyPatient = () => {
     const { user } = useContext(AuthContext);
     const [specialty, setSpecialty] = useState();
     const [patient, setPatient] = useState([]);
+    const [p,setP]=useState('');
     axios.get(`http://localhost:5006/useremail?email=${user.email}`, {
         method: 'GET',
         headers: {
@@ -30,9 +31,8 @@ const MyPatient = () => {
             setPatient(res.data);
         }).catch(e => console.log(e))
     }, [specialty])
-    const handleCall = () => {
-        console.log('call');
-        return <VedioCall></VedioCall>
+    const handelPayment=(id)=>{
+        return <div>hello</div>
     }
     return (
         <div>
@@ -40,7 +40,6 @@ const MyPatient = () => {
             <h1>All users</h1>
             <div className="overflow-x-auto">
                 <table className="table w-full">
-
                     <thead>
                         <tr>
                             <th></th>
@@ -48,6 +47,7 @@ const MyPatient = () => {
                             <th>Email</th>
                             <th>Date</th>
                             <th>Slot</th>
+                           
                             <th>Call</th>
                         </tr>
                     </thead>
@@ -58,8 +58,10 @@ const MyPatient = () => {
                                     <th>{i + 1}</th>
                                     <td>{user.patient_name}</td>
                                     <td>{user.email}</td>
+                                    
                                     <td>{user.AppointmentDate}</td>
                                     <td>{user.slot}</td>
+                                    
                                     <td><Link to={`/dashboard/vediocall/${user._id}`}><button className='btn btn-xs btn-danger'>Call</button></Link></td>
                                 </tr>
                             )
