@@ -5,23 +5,23 @@ import { Button } from 'react-day-picker';
 import { Link } from 'react-router-dom';
 const MyAppointment = () => {
     const { user } = useContext(AuthContext);
-    const url = `http://localhost:5006/booking?email=${user?.email}`;
-    const { data: bookings = [] } = useQuery({
-        queryKey: ['booking', user?.email],
-        queryFn: async () => {
-            const res = await fetch(url, {
-                headers: {
-                    authorization: `bearer ${localStorage.getItem('accessToken')}`
-                }
-            });
-            const data = await res.json();
-            return data;
-        }
-    })
+    // const url = `http://localhost:5006/booking?email=${user?.email}`;
+    // const { data: bookings = [] } = useQuery({
+    //     queryKey: ['booking', user?.email],
+    //     queryFn: async () => {
+    //         const res = await fetch(url, {
+    //             headers: {
+    //                 authorization: `bearer ${localStorage.getItem('accessToken')}`
+    //             }
+    //         });
+    //         const data = await res.json();
+    //         return data;
+    //     }
+    // })
     return (
         <div className="overflow-x-auto mb-5">
             <h1 className='text-center font-bold mb-3 text-blue-600'>MY Appointment</h1>
-            <table className="table w-full">
+            {/* <table className="table w-full">
                 <thead> 
                     <tr>
                         <th></th>
@@ -39,7 +39,7 @@ const MyAppointment = () => {
                                 <th>{i + 1}</th>
                                 <td>{booking.patient_name}</td>
                                 <td>{booking.treatment}</td>
-                                <td>{booking.AppointmentDate}</td>
+                                <td>{booking.AppointmentDate}</td> 
                                 <td>{booking.slot}</td>
                                 <td>{
                                     booking.price && !booking.paid && <Link to={`/dashboard/payment/${booking._id}`}><button className='btn btn-sm btn-primary'>Pay</button></Link>
@@ -52,7 +52,7 @@ const MyAppointment = () => {
                     }
 
                 </tbody>
-            </table>
+            </table> */}
         </div>
     );
 };

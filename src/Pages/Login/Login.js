@@ -38,7 +38,7 @@ const Login = () => {
             axios.get(`http://localhost:5006/useremail?email=${result.user.email}`, {
                 method: 'GET',
                 headers: {
-                    'content-type': 'application/json'
+                    'content-type': 'application/json' 
                 },
                 body: JSON.stringify()
             }).then(res => {
@@ -91,7 +91,7 @@ const Login = () => {
                 </form>
                 <p>New to Doctors Portal <Link className='text-primary' to="/signup">Create New Account</Link></p>
                 <div className="divider">OR</div>
-                <button onClick={hadleGoogleSignin} className='btn btn-outline w-full'>CONTINUE WITH GOOGLE</button>
+                {/* <button onClick={hadleGoogleSignin} className='btn btn-outline w-full'>CONTINUE WITH GOOGLE</button> */}
             </div>
         </div>
     );

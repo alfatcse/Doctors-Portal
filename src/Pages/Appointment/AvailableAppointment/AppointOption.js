@@ -12,7 +12,7 @@ const AppointOption = ({ option, setTreatment }) => {
         }
         else {
             navigate('/login');
-        }
+        } 
     }
     return (
         <div className="card  shadow-xl ">

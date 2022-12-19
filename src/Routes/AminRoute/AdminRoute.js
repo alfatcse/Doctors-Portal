@@ -11,10 +11,10 @@ const AdminRoute = ({ children }) => {
     if (loading||isAdminLoading) {
         return <Loading></Loading>
     }
-    if (user&&isAdmin) {
+    if (user&&isAdmin==='admin') {
         return children;
     }
     return <Navigate to="/login" state={{ from: location }} replace></Navigate>
 };
 
-export default AdminRoute;
+export default AdminRoute; 
