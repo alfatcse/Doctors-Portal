@@ -9,28 +9,33 @@ const Login = () => {
     const { register, formState: { errors }, handleSubmit } = useForm();
     const { signIn, signInWithGoogle } = useContext(AuthContext);
     const [loginError, setloginError] = useState('');
-    const [loginUserEmail, setloginUserEmail] = useState('');
-    const [token] = useToken(loginUserEmail);
+    const [loginEmail, setLoginEmail] = useState('');
+    const [token] = useToken(loginEmail);
+    console.log('looooo', loginEmail);
     const location = useLocation();
     const navigate = useNavigate();
     const from = location.state?.from || '/';
     if (token) {
         navigate(from, { replace: true })
     }
+    console.log('looooo', loginEmail);
     const handleLogin = (data) => {
-        console.log(data);
+        console.log(data.email);
         setloginError('');
         signIn(data.email, data.password)
             .then(result => {
-                console.log(result.user);
-                setloginUserEmail(data.email);
-                // navigate(from, { replace: true })
+                //  console.log('userr',result.user.email);
+                setLoginEmail(result.user.email);
+                console.log('looooo', loginEmail);
+
+                //navigate(from, { replace: true })
             })
             .catch(e => {
                 console.error(e.message);
                 setloginError(e.message);
             })
     }
+
     const hadleGoogleSignin = () => {
         setloginError('');
         signInWithGoogle().then(result => {
@@ -38,16 +43,16 @@ const Login = () => {
             axios.get(`http://localhost:5006/useremail?email=${result.user.email}`, {
                 method: 'GET',
                 headers: {
-                    'content-type': 'application/json' 
+                    'content-type': 'application/json'
                 },
                 body: JSON.stringify()
             }).then(res => {
                 console.log(res.data);
-                if(res.data.email===result.user.email)
-                {
-                    navigate(from, { replace: true })
+               
+                if (res.data.email === result.user.email) {
+                    setLoginEmail(result.user.email);
                 }
-                else{
+                else {
                     setloginError('User not exist');
                 }
             }).catch(e => console.log(e))
@@ -57,6 +62,7 @@ const Login = () => {
                 setloginError(e.message);
             })
     }
+
     return (
         <div className='h-[800px] flex justify-center items-center'>
             <div className='w-96 p-7'>

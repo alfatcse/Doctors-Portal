@@ -68,19 +68,17 @@ const MakeSchedule = () => {
     }]
     const handleSave = () => {
         const Slotdata = {
-            serviceName: specialty,
-            doctorDetail:doctorDetails,
+            doctorSlot:dateSlot,
         }
         console.log('slotdate', Slotdata);
         setDateSlot([]);
         setValue('');
-        // navigate('/');
-        fetch(`http://localhost:5006/addslot/${Slotdata.serviceName}`, {
+        fetch(`http://localhost:5006/addslot/${user.email}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json',
             },
-            body: JSON.stringify(Slotdata)
+            body: JSON.stringify(dateSlot)
         })
             .then(res => res.json())
             .then(result => {

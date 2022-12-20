@@ -5,20 +5,24 @@ import { Button } from 'react-day-picker';
 import { Link } from 'react-router-dom';
 const MyAppointment = () => {
     const { user } = useContext(AuthContext);
+    console.log(user);
     const url = `http://localhost:5006/booking?email=${user?.email}`;
     const { data: bookings = [] } = useQuery({
         queryKey: ['booking', user?.email],
         queryFn: async () => {
             const res = await fetch(url, {
                 headers: {
-                    authorization: `bearer ${localStorage.getItem('accessToken')}`
+                     authorization: `bearer ${localStorage.getItem('accessToken')}`,
+                    'content-type': 'application/json'
                 }
             });
             const data = await res.json();
             return data;
         }
     })
+    console.log(bookings);
     return (
+       
         <div className="overflow-x-auto mb-5">
             <h1 className='text-center font-bold mb-3 text-blue-600'>MY Appointment</h1>
             <table className="table w-full">

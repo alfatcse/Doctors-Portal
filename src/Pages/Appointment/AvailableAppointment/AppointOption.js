@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../Context/AuthProvider';
 
 const AppointOption = ({ option, setTreatment }) => {
-    const { name, price,slots } = option;
+    const { name, price,slots,doctors } = option;
+    console.log('doccc',doctors);
     const { user } = useContext(AuthContext);
     const navigate = useNavigate();
     const handleBooking = (op) => {
@@ -22,10 +23,17 @@ const AppointOption = ({ option, setTreatment }) => {
                 <p>{slots.length} {slots.length > 1 ? 'Spaces' : 'Space'} Available</p>
                 <p>Price: ${price}</p>
                 <div className="card-actions justify-center">
-                    <label
+                    {
+                        doctors?<><label
                         onClick={() => handleBooking(option)}
                         disabled={slots.length === 0}
-                        htmlFor="booking-modal" className="btn btn-primary text-white font-bold">Book Appointment</label>
+                        htmlFor="booking-modal" className="btn btn-primary text-white font-bold">Book Appointment</label></>
+                        :<label
+                        onClick={() => handleBooking(option)}
+                        disabled
+                        htmlFor="booking-modal" className="btn btn-primary text-white font-bold">Doctor not Available</label>
+                    }
+                    
                 </div>
             </div>
         </div>

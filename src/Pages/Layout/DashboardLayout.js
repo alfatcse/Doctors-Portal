@@ -20,11 +20,11 @@ const DashboardLayout = () => {
                 <div className="drawer-side">
                     <label htmlFor="dashboard-drawer" className="drawer-overlay"></label>
                     <ul className="menu p-4 bg-base-100 w-80 text-base-content">
-                        {
-                            isAdmin==='Patient'&&<>
+                        {/* {
+                            isAdmin==='Patient'&&<> */}
                              <li><Link to="/dashboard">My Appointment</Link></li>
-                            </>
-                        }
+                            {/* </>
+                        } */}
                        
                         {
                             isAdmin === 'admin' && <>
@@ -35,7 +35,7 @@ const DashboardLayout = () => {
                         }
                         {
                             isAdmin === 'Doctor' && <>
-                                <li><Link to="/dashboard/myschedule">My Schedule</Link></li>
+                                {/* <li><Link to="/dashboard/myschedule">My Schedule</Link></li> */}
                                 <li><Link to="/dashboard/patient">My Patient</Link></li>
                                 <li><Link to="/dashboard/newschedule">New Schedule</Link></li>
                             </>

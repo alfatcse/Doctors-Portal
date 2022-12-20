@@ -9,6 +9,7 @@ const MyPatient = () => {
     const [specialty, setSpecialty] = useState();
     const [patient, setPatient] = useState([]);
     const [doc, setDoc] = useState();
+    const [docName, setDocName] = useState();
     let d = '';
     axios.get(`http://localhost:5006/useremail?email=${user.email}`, {
         method: 'GET',
@@ -19,12 +20,13 @@ const MyPatient = () => {
     }).then(res => {
         setSpecialty(res.data.specialty);
         console.log(res.data);
+        setDocName(res.data.name);
         setDoc(res.data.isverified);
     }).catch(e => console.log(e))
-    console.log('vv', doc);
+    console.log('vv', docName);
     d = doc;
     useEffect(() => {
-        axios.get(`http://localhost:5006/bookingpatient/${specialty}`, {
+        axios.get(`http://localhost:5006/bookingpatient/${docName}`, {
             method: 'GET',
             headers: {
                 'content-type': 'application/json'
@@ -79,7 +81,7 @@ const MyPatient = () => {
                         </tbody>
                     </table>
                 </div>
-            </> : <h1>noo</h1>}</div>
+            </> : <h1 className='text-center font-bold mb-3 text-blue-600'>Your are not verified by the Admin.Please wait for a while</h1>}</div>
 
     );
 };

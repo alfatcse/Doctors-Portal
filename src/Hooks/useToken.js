@@ -7,6 +7,7 @@ const useToken = email => {
             fetch(`http://localhost:5006/jwt?email=${email}`)
                 .then(res => res.json())
                 .then(data => {
+                    console.log('token',data);
                     if (data.accessToken) {
                         localStorage.setItem('accessToken', data.accessToken);
                         setToken(data.accessToken);

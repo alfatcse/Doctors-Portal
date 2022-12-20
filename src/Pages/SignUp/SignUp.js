@@ -3,15 +3,14 @@ import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthProvider';
 import { toast } from 'react-hot-toast';
-import { data } from 'autoprefixer';
-import { da } from 'date-fns/locale';
+
 import useToken from '../../Hooks/useToken';
 import { useQuery } from '@tanstack/react-query';
 const SignUp = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const { createUser, updateUser, signInWithGoogle } = useContext(AuthContext);
     const [signUpError, setSignUpError] = useState();
-    const [createdUserEmail, setCreatedUserEmail] = useState('Patient');
+    const [createdUserEmail, setCreatedUserEmail] = useState('');
     const [token] = useToken(createdUserEmail);
     const navigate = useNavigate();
     const [value, setValue] = useState("");
@@ -41,9 +40,9 @@ const SignUp = () => {
             setInputBox(false);
         }
     };
-    // if (token) {
-    //     navigate('/');
-    // }
+    if (token) {
+        navigate('/');
+    }
     const submitHandler = (data) => {
         console.log(data.usertype);
         const image = data.image[0];
@@ -67,7 +66,7 @@ const SignUp = () => {
                                 displayName: data.name
                             }
                             updateUser(userinfo).then(() => {
-                                saveUser(data.name, data.email, data.usertype, data?.registrationnumber, data?.specialty,imgData.data.url);
+                                saveUser(data.name, data.email, data.usertype, data?.registrationnumber, data?.specialty, imgData.data.url);
                             }).catch(e => console.error(e))
                         })
                         .catch(error => {
@@ -93,8 +92,8 @@ const SignUp = () => {
                 setSignUpError(e.message);
             })
     }
-    const saveUser = (name, email, role, registrationnumber, specialty,image) => {
-        const user = { name, email, role, registrationnumber,specialty, image };
+    const saveUser = (name, email, role, registrationnumber, specialty, image) => {
+        const user = { name, email, role, registrationnumber, specialty, image };
         console.log(user);
         fetch('http://localhost:5006/users', {
             method: 'POST',

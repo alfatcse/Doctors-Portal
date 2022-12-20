@@ -5,10 +5,11 @@ import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../Context/AuthProvider';
 
 const BookingModal = ({ treatment, selectedDate, setTreatment, refetch }) => {
-    const { name, slots,price } = treatment;
+    const { name, slots, price, doctors } = treatment;
+    console.log('BBBttt', treatment);
     const { user } = useContext(AuthContext);
     // console.log('User name::',user.displayName);
-    const navigate=useNavigate();
+    const navigate = useNavigate();
     const handleBooking = (event) => {
         event.preventDefault();
         const form = event.target;
@@ -16,12 +17,14 @@ const BookingModal = ({ treatment, selectedDate, setTreatment, refetch }) => {
         const email = form.email.value;
         const phone = form.phone.value;
         const slot = form.slot.value;
+        const doctor=form.doc.value;
         const booking = {
             AppointmentDate: format(selectedDate, 'PP'),
             patient_name: patient_name,
             slot,
             email,
             phone,
+            doctor,
             treatment: name,
             price
         }
@@ -49,7 +52,7 @@ const BookingModal = ({ treatment, selectedDate, setTreatment, refetch }) => {
                     }
                 })
         }
-        else{
+        else {
             console.log('No userrr');
             navigate('/login');
         }
@@ -67,6 +70,11 @@ const BookingModal = ({ treatment, selectedDate, setTreatment, refetch }) => {
                         <select name='slot' className="select select-bordered w-full ">
                             {
                                 slots.map((slot, i) => <option key={i} value={slot}>{slot}</option>)
+                            }
+                        </select>
+                        <select name='doc' className="select select-bordered w-full ">
+                            {
+                                doctors?.map((doc, i) => <option key={i} value={doc}>{doc}</option>)
                             }
                         </select>
                         <input name='name' defaultValue={user?.displayName} disabled readOnly type="name" placeholder="Your Name" className="input input-bordered input-info w-full " />
