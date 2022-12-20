@@ -4,7 +4,7 @@ import { AuthContext } from '../../../Context/AuthProvider';
 
 const AppointOption = ({ option, setTreatment }) => {
     const { name, price,slots,doctors } = option;
-    console.log('doccc',doctors);
+    
     const { user } = useContext(AuthContext);
     const navigate = useNavigate();
     const handleBooking = (op) => {

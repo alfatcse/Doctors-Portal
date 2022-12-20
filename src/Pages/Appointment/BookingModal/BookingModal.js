@@ -1,14 +1,17 @@
+import axios from 'axios';
 import { format } from 'date-fns';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
+import { useEffect } from 'react';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../Context/AuthProvider';
-
+import { useQuery } from '@tanstack/react-query';
 const BookingModal = ({ treatment, selectedDate, setTreatment, refetch }) => {
     const { name, slots, price, doctors } = treatment;
-    console.log('BBBttt', treatment);
     const { user } = useContext(AuthContext);
-    // console.log('User name::',user.displayName);
+    const [value, setValue] = useState("");
+    const [date, setDate] = useState([]);
+    const [slot, setSlot] = useState([]);
     const navigate = useNavigate();
     const handleBooking = (event) => {
         event.preventDefault();
@@ -17,11 +20,13 @@ const BookingModal = ({ treatment, selectedDate, setTreatment, refetch }) => {
         const email = form.email.value;
         const phone = form.phone.value;
         const slot = form.slot.value;
-        const doctor=form.doc.value;
+        const doctor = form.doc.value;
+        const date=form.date.value;
         const booking = {
-            AppointmentDate: format(selectedDate, 'PP'),
+           
             patient_name: patient_name,
             slot,
+            date,
             email,
             phone,
             doctor,
@@ -48,7 +53,6 @@ const BookingModal = ({ treatment, selectedDate, setTreatment, refetch }) => {
                     }
                     else {
                         toast.error(data.message);
-
                     }
                 })
         }
@@ -58,25 +62,66 @@ const BookingModal = ({ treatment, selectedDate, setTreatment, refetch }) => {
         }
         console.log(booking);
     }
+    const handleChange = (e) => {
+        setValue(e.target.value);
+    };
+    const handleSlot = (e) => {
+        console.log(e.target.value);
+        date.map(p => {
+            if (p.date === e.target.value) {
+                setSlot(p.slot);
+            }
+        })
+
+    }
+    useEffect(() => {
+        fetch(`http://localhost:5006/docemailslot/${value}`)
+            .then(res => res.json())
+            .then(data => {
+                setDate(data.docSlot);
+
+            })
+
+    }, [value])
+
+    console.log(slot);
     return (
         <>
             <input type="checkbox" id="booking-modal" className="modal-toggle" />
             <div className="modal">
                 <div className="modal-box relative">
                     <label htmlFor="booking-modal" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
-                    <h3 className="text-lg font-bold">{name}</h3>
-                    <form onSubmit={handleBooking} className='grid grid-cols-1 gap-3 mt-10'>
-                        <input type="text" disabled value={format(selectedDate, 'PP')} className="input input-bordered input-info w-full " />
-                        <select name='slot' className="select select-bordered w-full ">
+                    <h3 className="text-lg font-bold text-center font-bold  text-blue-600">{name}</h3>
+                    <form onSubmit={handleBooking} className='grid grid-cols-1 gap-3 mt-5'>
+                        {/* <input type="text" disabled value={format(selectedDate, 'PP')} className="input input-bordered input-info w-full " /> */}
+                        <label className="label">
+                            <span className="label-text">Please Select a Doctor</span>
+                        </label>
+
+                        <select name='doc' value={value} onChange={handleChange} className="select select-bordered w-full ">
                             {
-                                slots.map((slot, i) => <option key={i} value={slot}>{slot}</option>)
+                                doctors?.map((doc, i) => <option key={i} value={doc.docEmail}>{doc.name}</option>)
                             }
                         </select>
-                        <select name='doc' className="select select-bordered w-full ">
-                            {
-                                doctors?.map((doc, i) => <option key={i} value={doc}>{doc}</option>)
-                            }
-                        </select>
+                        <label className="label">
+                            <span className="label-text">Please Select a Date</span>
+                        </label>
+                        {
+                            date.length === 0 ? <> <input  disabled readOnly type="email" placeholder="Please Select a doctor first" className="input input-bordered input-info w-full " /></>
+                                : <><select name='date' value={slot} onChange={handleSlot} className="select select-bordered w-full ">
+                                    {
+                                        date.map((s, i) => <option key={i} value={s.date}>{s.date}</option>)
+                                    }
+                                </select></>
+                        }
+                        {
+                            slot.length === 0 ? <> <input  disabled readOnly type="email" placeholder="Please Select a doctor first" className="input input-bordered input-info w-full " /></>
+                                : <><select name='slot'  className="select select-bordered w-full ">
+                                    {
+                                        slot.map((s, i) => <option key={i} value={s}>{s}</option>)
+                                    }
+                                </select></>
+                        }
                         <input name='name' defaultValue={user?.displayName} disabled readOnly type="name" placeholder="Your Name" className="input input-bordered input-info w-full " />
                         <input name='email' defaultValue={user?.email} disabled readOnly type="email" placeholder="Email Address" className="input input-bordered input-info w-full " />
                         <input name='phone' type="phone" placeholder="Phone Number" className="input input-bordered input-info w-full " />
