@@ -44,6 +44,16 @@ const ManageDoctors = () => {
     if (isLoading) {
         return <Loading></Loading>
     }
+    const handleVerified=(id,specialty)=>{
+      console.log(id,specialty);
+      fetch(`http://localhost:5006/verifydoctor/${id}`,{
+        method:'PUT',
+        headers:{
+            'content-type': 'application/json'
+        },
+        body: JSON.stringify({specialty})
+      }).then().catch(e=>console.log(e))
+    }
     return (
         <div>
             <h1>doc{doctors?.length}</h1>
@@ -56,6 +66,7 @@ const ManageDoctors = () => {
                             <th>Name</th>
                             <th>Email</th>
                             <th>Specialty</th>
+                            <th>Verified</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -74,6 +85,7 @@ const ManageDoctors = () => {
                                     <td>{doctor.name}</td>
                                     <td>{doctor.email}</td>
                                     <td>{doctor.specialty}</td>
+                                    <td><button onClick={()=>handleVerified(doctor._id,doctor.specialty)} className='btn btn-primary btn-sm'>Make Verified</button></td>
                                     <td>
                                         <label onClick={() => setDeletingDoctor(doctor)} htmlFor="confirmation-modal" className="btn btn-circle btn-outline"><svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg></label>
                                     </td>

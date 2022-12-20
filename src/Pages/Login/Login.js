@@ -42,7 +42,8 @@ const Login = () => {
                 },
                 body: JSON.stringify()
             }).then(res => {
-                if(res.data.email)
+                console.log(res.data);
+                if(res.data.email===result.user.email)
                 {
                     navigate(from, { replace: true })
                 }
@@ -91,7 +92,7 @@ const Login = () => {
                 </form>
                 <p>New to Doctors Portal <Link className='text-primary' to="/signup">Create New Account</Link></p>
                 <div className="divider">OR</div>
-                {/* <button onClick={hadleGoogleSignin} className='btn btn-outline w-full'>CONTINUE WITH GOOGLE</button> */}
+                <button onClick={hadleGoogleSignin} className='btn btn-outline w-full'>CONTINUE WITH GOOGLE</button>
             </div>
         </div>
     );
