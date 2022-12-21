@@ -12,7 +12,7 @@ const BookingModal = ({ treatment, selectedDate, setTreatment, refetch }) => {
     const [value, setValue] = useState("");
     const [date, setDate] = useState([]);
     const [slot, setSlot] = useState([]);
-    const [value1,setValue1]=useState("");
+    const [value1, setValue1] = useState("");
     const navigate = useNavigate();
     const handleBooking = (event) => {
         event.preventDefault();
@@ -22,10 +22,9 @@ const BookingModal = ({ treatment, selectedDate, setTreatment, refetch }) => {
         const phone = form.phone.value;
         const slot = form.slot.value;
         const doctor = form.doc.value;
-        const AppointmentDate=form.date1.value;
-        console.log('dateform',form.date1.value);
+        const AppointmentDate = form.date1.value;
+        console.log('dateform', form.date1.value);
         const booking = {
-           
             patient_name: patient_name,
             slot,
             AppointmentDate,
@@ -35,9 +34,14 @@ const BookingModal = ({ treatment, selectedDate, setTreatment, refetch }) => {
             treatment: name,
             price
         }
+        const delSlot={
+            doctor,
+            AppointmentDate,
+            slot
+        }
         //todo :: send data to the server and once data is saved and close modal
         // display toast
-        console.log('bbb',booking);
+        console.log('bbb', booking);
         if (user) {
             fetch('http://localhost:5006/bookings', {
                 method: 'POST',
@@ -52,6 +56,13 @@ const BookingModal = ({ treatment, selectedDate, setTreatment, refetch }) => {
                     setTreatment(null);
                     if (data.acknowledged) {
                         toast.success('Booking Confirmed');
+                        fetch('http://localhost:5006/deleteslot', {
+                            method: 'POST',
+                            headers: {
+                                'content-type': 'application/json'
+                            },
+                            body: JSON.stringify(delSlot)
+                        }).then(res => res.json()).catch(e=>console.log(e))
                         refetch();
                     }
                     else {
@@ -63,7 +74,7 @@ const BookingModal = ({ treatment, selectedDate, setTreatment, refetch }) => {
             console.log('No userrr');
             navigate('/login');
         }
-       
+
     }
     const handleChange = (e) => {
         setValue(e.target.value);
@@ -110,7 +121,7 @@ const BookingModal = ({ treatment, selectedDate, setTreatment, refetch }) => {
                             <span className="label-text">Please Select a Date</span>
                         </label>
                         {
-                            date.length === 0 ? <> <input  disabled readOnly type="email" placeholder="Please Select a doctor first" className="input input-bordered input-info w-full " /></>
+                            date.length === 0 ? <> <input disabled readOnly type="email" placeholder="Please Select a doctor first" className="input input-bordered input-info w-full " /></>
                                 : <><select name='date1' value={value1} onChange={handleSlot} className="select select-bordered w-full ">
                                     {
                                         date.map((s, i) => <option key={i} value={s.date}>{s.date}</option>)
@@ -118,8 +129,8 @@ const BookingModal = ({ treatment, selectedDate, setTreatment, refetch }) => {
                                 </select></>
                         }
                         {
-                            slot.length === 0 ? <> <input  disabled readOnly type="email" placeholder="Please Select a doctor first" className="input input-bordered input-info w-full " /></>
-                                : <><select name='slot'  className="select select-bordered w-full ">
+                            slot.length === 0 ? <> <input disabled readOnly type="email" placeholder="Please Select a doctor first" className="input input-bordered input-info w-full " /></>
+                                : <><select name='slot' className="select select-bordered w-full ">
                                     {
                                         slot.map((s, i) => <option key={i} value={s}>{s}</option>)
                                     }
