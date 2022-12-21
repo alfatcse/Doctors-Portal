@@ -12,6 +12,7 @@ const BookingModal = ({ treatment, selectedDate, setTreatment, refetch }) => {
     const [value, setValue] = useState("");
     const [date, setDate] = useState([]);
     const [slot, setSlot] = useState([]);
+    const [value1,setValue1]=useState("");
     const navigate = useNavigate();
     const handleBooking = (event) => {
         event.preventDefault();
@@ -21,12 +22,13 @@ const BookingModal = ({ treatment, selectedDate, setTreatment, refetch }) => {
         const phone = form.phone.value;
         const slot = form.slot.value;
         const doctor = form.doc.value;
-        const date=form.date.value;
+        const AppointmentDate=form.date1.value;
+        console.log('dateform',form.date1.value);
         const booking = {
            
             patient_name: patient_name,
             slot,
-            date,
+            AppointmentDate,
             email,
             phone,
             doctor,
@@ -35,6 +37,7 @@ const BookingModal = ({ treatment, selectedDate, setTreatment, refetch }) => {
         }
         //todo :: send data to the server and once data is saved and close modal
         // display toast
+        console.log('bbb',booking);
         if (user) {
             fetch('http://localhost:5006/bookings', {
                 method: 'POST',
@@ -60,19 +63,19 @@ const BookingModal = ({ treatment, selectedDate, setTreatment, refetch }) => {
             console.log('No userrr');
             navigate('/login');
         }
-        console.log(booking);
+       
     }
     const handleChange = (e) => {
         setValue(e.target.value);
     };
     const handleSlot = (e) => {
         console.log(e.target.value);
+        setValue1(e.target.value);
         date.map(p => {
             if (p.date === e.target.value) {
                 setSlot(p.slot);
             }
         })
-
     }
     useEffect(() => {
         fetch(`http://localhost:5006/docemailslot/${value}`)
@@ -108,7 +111,7 @@ const BookingModal = ({ treatment, selectedDate, setTreatment, refetch }) => {
                         </label>
                         {
                             date.length === 0 ? <> <input  disabled readOnly type="email" placeholder="Please Select a doctor first" className="input input-bordered input-info w-full " /></>
-                                : <><select name='date' value={slot} onChange={handleSlot} className="select select-bordered w-full ">
+                                : <><select name='date1' value={value1} onChange={handleSlot} className="select select-bordered w-full ">
                                     {
                                         date.map((s, i) => <option key={i} value={s.date}>{s.date}</option>)
                                     }
