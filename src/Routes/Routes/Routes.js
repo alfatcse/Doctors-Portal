@@ -18,6 +18,8 @@ import MySchedule from "../../Pages/Dashboard/DoctorDash/MySchedule";
 import MyPatient from "../../Pages/Dashboard/DoctorDash/MyPatient";
 import MakeSchedule from "../../Pages/Dashboard/DoctorDash/MakeSchedule";
 import VedioCall from "../../Pages/Dashboard/DoctorDash/VedioCall";
+import Testimonial from "../../Pages/Home/Testimonial/Testimonial";
+import Aboutus from "../../Pages/Home/Testimonial/Aboutus";
 const router = createBrowserRouter([
     {
         path: '/',
@@ -39,7 +41,15 @@ const router = createBrowserRouter([
             {
                 path:'/signup',
                 element:<SignUp></SignUp>
-            }   
+            },
+            {
+                path:'/reviews',
+                element:<Testimonial></Testimonial>
+            },
+            {
+                path:'/aboutus',
+                element:<Aboutus></Aboutus>
+            }
         ] 
     },
     {

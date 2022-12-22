@@ -10,7 +10,7 @@ const Navbar = () => {
     const manuItems = <React.Fragment>
         <li><Link className='font-bold rounded-lg' to='/'>Home</Link></li>
         <li><Link className='font-bold rounded-lg' to='/appointment'>Appointment</Link></li>
-        <li><Link className='font-bold rounded-lg' to='/about'>About</Link></li>
+        <li><Link className='font-bold rounded-lg' to='/aboutus'>About</Link></li>
         <li><Link className='font-bold rounded-lg' to='/reviews'>Reviews</Link></li>
         {
             user?.uid ?

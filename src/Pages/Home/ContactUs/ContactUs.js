@@ -4,8 +4,8 @@ const ContactUs = () => {
     return (
         <div class="flex min-h-screen items-center justify-start bg-white">
             <div class="mx-auto w-full max-w-lg">
-                <h1 class="text-4xl font-medium">Contact us</h1>
-                <p class="mt-3">Email us at help@domain.com or message us here:</p>
+                <h1 class="text-4xl font-medium text-center font-bold mb-3 text-blue-600">Contact us</h1>
+                <p class="mt-3 text-center font-bold mb-3 text-blue-600">Email us at alfat.cse.21@gmail.com or message us here:</p>
                 <form action="https://api.web3forms.com/submit" class="mt-10">
                     <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE" />
                     <div class="grid gap-6 sm:grid-cols-2">
@@ -22,9 +22,13 @@ const ContactUs = () => {
                             <label class="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:text-blue-600 peer-focus:dark:text-blue-500">Your message</label>
                         </div>
                     </div>
-                    <button type="submit" class="mt-5 rounded-md bg-black px-10 py-2 text-white">Send Message</button>
+                    {/* <button type="submit " class="mt-5 align-center rounded-md bg-black px-10 py-2 text-white">Send Message</button> */}
+                   
                 </form>
+                <h1 className='text-center mt-5 font-bold mb-3 text-blue-600'>  <button className="btn  btn-outline btn-primary">Send Message</button></h1>
+              
             </div>
+           
         </div>
     );
 };
