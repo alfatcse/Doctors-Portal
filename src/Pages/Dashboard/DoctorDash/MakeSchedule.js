@@ -2,12 +2,14 @@ import React, { useContext } from 'react';
 import chair from '../../../assets/images/chair.png';
 import { DayPicker, DateRange } from 'react-day-picker';
 import { addDays, format } from 'date-fns';
+import { DatePicker } from 'react-datetime';
 import backImg from '../../../assets/images/bg.png'
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { AuthContext } from '../../../Context/AuthProvider';
 import axios from 'axios';
 import { Navigate, useNavigate } from 'react-router-dom';
+import moment from 'moment';
 const MakeSchedule = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const { user } = useContext(AuthContext);
@@ -85,7 +87,17 @@ const MakeSchedule = () => {
 
             })
     }
-
+    const today = new Date();
+    const yesterday = moment().subtract(1, 'day');
+    const disablePastDt = current => {
+        return current.isAfter(yesterday);
+    };
+    const disabledDays = [
+        new Date(2022, 12, 10),
+        new Date(2022, 12, 12),
+        new Date(2022, 12, 20),
+        { from: new Date(2022, 4, 18), to: new Date(2022, 4, 29) }
+      ];
     return (
         <section>
             <header className='my-6' style={{ backgroundImage: `url(${backImg})` }}>
@@ -94,6 +106,9 @@ const MakeSchedule = () => {
                         <img src={chair} alt='dentist chair' className="max-w-sm  rounded-lg shadow-2xl" />
                         <div className='mr-6'>
                             <DayPicker
+                                showOutsideDays
+                                disabled={disabledDays}
+                                showDisabledMonthNavigation
                                 mode="multiple"
                                 min={1}
                                 selected={days}

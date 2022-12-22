@@ -3,10 +3,11 @@ import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthProvider';
 import { toast } from 'react-hot-toast';
-
 import useToken from '../../Hooks/useToken';
 import { useQuery } from '@tanstack/react-query';
+import useTitleHook from '../../Hooks/useTitleHook';
 const SignUp = () => {
+    useTitleHook('Sign Up');
     const { register, handleSubmit, formState: { errors } } = useForm();
     const { createUser, updateUser, signInWithGoogle } = useContext(AuthContext);
     const [signUpError, setSignUpError] = useState();

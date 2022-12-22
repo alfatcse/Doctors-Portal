@@ -22,11 +22,6 @@ const AvailableAppointment = ({ selectedDate }) => {
     if(isLoading){
         return <Loading></Loading>;
     }
-    // useEffect(() => {
-    //     fetch('http://localhost:5006/appointmentOptions')
-    //         .then(res => res.json())
-    //         .then(data => setappointmentOptions(data)) 
-    // }, [])
     return (
         <section className='mt-16'>
             <p className='text-center text-4xl text-primary font-bold'>Available Appointment On:{format(selectedDate, 'PP')}</p>

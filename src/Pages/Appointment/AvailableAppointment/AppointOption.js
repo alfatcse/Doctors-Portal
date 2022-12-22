@@ -1,10 +1,11 @@
 import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../Context/AuthProvider';
+import useTitleHook from '../../../Hooks/useTitleHook';
 
 const AppointOption = ({ option, setTreatment }) => {
+    useTitleHook('Appointment');
     const { name, price,slots,doctors } = option;
-    
     const { user } = useContext(AuthContext);
     const navigate = useNavigate();
     const handleBooking = (op) => {

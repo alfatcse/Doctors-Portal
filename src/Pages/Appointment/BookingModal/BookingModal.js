@@ -74,7 +74,6 @@ const BookingModal = ({ treatment, selectedDate, setTreatment, refetch }) => {
             console.log('No userrr');
             navigate('/login');
         }
-
     }
     const handleChange = (e) => {
         setValue(e.target.value);
@@ -93,12 +92,9 @@ const BookingModal = ({ treatment, selectedDate, setTreatment, refetch }) => {
             .then(res => res.json())
             .then(data => {
                 setDate(data.docSlot);
-
             })
 
     }, [value])
-
-    console.log(slot);
     return (
         <>
             <input type="checkbox" id="booking-modal" className="modal-toggle" />
