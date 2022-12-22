@@ -60,15 +60,15 @@ const MakeSchedule = () => {
         event.target.reset();
         event.currentTarget.disabled = true;
     }
-    const doctorDetails=[{
-        docEmail:user.email,
-        docName:user.displayName,
-        price:value,
+    const doctorDetails = [{
+        docEmail: user.email,
+        docName: user.displayName,
+        price: value,
         slots: dateSlot
     }]
     const handleSave = () => {
         const Slotdata = {
-            doctorSlot:dateSlot,
+            doctorSlot: dateSlot,
         }
         console.log('slotdate', Slotdata);
         setDateSlot([]);
@@ -82,7 +82,7 @@ const MakeSchedule = () => {
         })
             .then(res => res.json())
             .then(result => {
-                
+
             })
     }
 
@@ -110,10 +110,10 @@ const MakeSchedule = () => {
                     <input type="checkbox" id="slot-modal" className="modal-toggle" />
                     <div className="modal ">
                         <div className="modal-box ml-10">
-                            <label className="label">
+                            {/* <label className="label">
                                 <span className="label-text font-bold">Service Charge</span>
                             </label>
-                            <input className='justify-items-center' type='text' id='price' name='price' placeholder='Price' onChange={handlePrice} ></input>
+                            <input className='justify-items-center' type='text' id='price' name='price' placeholder='Price' onChange={handlePrice} ></input> */}
                             {
                                 daySlot.map(d =>
                                     <>
@@ -121,14 +121,14 @@ const MakeSchedule = () => {
                                         <form className='g-5 justify-items-center' onSubmit={handleDaySlot(d)}>
                                             <select {...register("slot1", { required: "User Type is Required" })} className="select input-bordered  max-w-sm" >
                                                 <option value="Select" selected>Select a Slot</option>
-                                                <option value="10-12">10-12</option>
-                                                <option value="12-02">12-02</option>
+                                                <option value="10.00 AM-12.00 AM">10.00 AM-12.00 AM</option>
+                                                <option value="12.00 AM-02.00 PM">12.00 AM-02.00 PM</option>
                                             </select>
                                             {errors.slot1 && <p className='text-red-500'>{errors.slot1.message}</p>}
                                             <select {...register("slot2", { required: "User Type is Required" })} className="select input-bordered  max-w-sm" >
                                                 <option value="Select" selected>Select a Slot</option>
-                                                <option value="02-03">02-03</option>
-                                                <option value="03-04">03-04</option>
+                                                <option value="02.00 PM-03.00 PM">02.00 PM-03.00 PM</option>
+                                                <option value="03.00 Pm-04.00 PM">03.00 PM-04.00 PM</option>
                                             </select>
                                             {errors.slot2 && <p className='text-red-500'>{errors.slot2.message}</p>}
                                             <button className='btn btn-primary' value="Log In" type="submit" >Add</button>
@@ -147,12 +147,4 @@ const MakeSchedule = () => {
 };
 
 export default MakeSchedule;
-//{
-//     doctorDetail:[
-//         {
-//          $set:{
-//              docName:'rony'
-//          }
-//         }
-//       ]
-//  }
+

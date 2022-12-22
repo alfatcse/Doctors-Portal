@@ -23,7 +23,7 @@ const BookingModal = ({ treatment, selectedDate, setTreatment, refetch }) => {
         const slot = form.slot.value;
         const doctor = form.doc.value;
         const AppointmentDate = form.date1.value;
-        console.log('dateform', form.date1.value);
+        
         const booking = {
             patient_name: patient_name,
             slot,
@@ -34,7 +34,7 @@ const BookingModal = ({ treatment, selectedDate, setTreatment, refetch }) => {
             treatment: name,
             price
         }
-        const delSlot={
+        const delSlot = {
             doctor,
             AppointmentDate,
             slot
@@ -62,7 +62,7 @@ const BookingModal = ({ treatment, selectedDate, setTreatment, refetch }) => {
                                 'content-type': 'application/json'
                             },
                             body: JSON.stringify(delSlot)
-                        }).then(res => res.json()).catch(e=>console.log(e))
+                        }).then(res => res.json()).catch(e => console.log(e))
                         refetch();
                     }
                     else {
@@ -112,10 +112,11 @@ const BookingModal = ({ treatment, selectedDate, setTreatment, refetch }) => {
                             <span className="label-text">Please Select a Doctor</span>
                         </label>
 
-                        <select name='doc' value={value} onChange={handleChange} className="select select-bordered w-full ">
-                            {
+                        <select name='doc' value={value} onChange={handleChange} defaultValue={{ label: 'Select' }} className="select select-bordered w-full ">
+                            <option >Choose One</option>{
                                 doctors?.map((doc, i) => <option key={i} value={doc.docEmail}>{doc.name}</option>)
                             }
+
                         </select>
                         <label className="label">
                             <span className="label-text">Please Select a Date</span>
@@ -123,7 +124,7 @@ const BookingModal = ({ treatment, selectedDate, setTreatment, refetch }) => {
                         {
                             date.length === 0 ? <> <input disabled readOnly type="email" placeholder="Please Select a doctor first" className="input input-bordered input-info w-full " /></>
                                 : <><select name='date1' value={value1} onChange={handleSlot} className="select select-bordered w-full ">
-                                    {
+                                    <option >Choose One</option> {
                                         date.map((s, i) => <option key={i} value={s.date}>{s.date}</option>)
                                     }
                                 </select></>
@@ -131,7 +132,7 @@ const BookingModal = ({ treatment, selectedDate, setTreatment, refetch }) => {
                         {
                             slot.length === 0 ? <> <input disabled readOnly type="email" placeholder="Please Select a doctor first" className="input input-bordered input-info w-full " /></>
                                 : <><select name='slot' className="select select-bordered w-full ">
-                                    {
+                                    <option >Choose One</option>{
                                         slot.map((s, i) => <option key={i} value={s}>{s}</option>)
                                     }
                                 </select></>

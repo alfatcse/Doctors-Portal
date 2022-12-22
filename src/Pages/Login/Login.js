@@ -11,14 +11,14 @@ const Login = () => {
     const [loginError, setloginError] = useState('');
     const [loginEmail, setLoginEmail] = useState('');
     const [token] = useToken(loginEmail);
-    console.log('looooo', loginEmail);
+   
     const location = useLocation();
     const navigate = useNavigate();
     const from = location.state?.from || '/';
     if (token) {
         navigate(from, { replace: true })
     }
-    console.log('looooo', loginEmail);
+    
     const handleLogin = (data) => {
         console.log(data.email);
         setloginError('');
@@ -26,7 +26,7 @@ const Login = () => {
             .then(result => {
                 //  console.log('userr',result.user.email);
                 setLoginEmail(result.user.email);
-                console.log('looooo', loginEmail);
+               
 
                 //navigate(from, { replace: true })
             })
