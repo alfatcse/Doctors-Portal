@@ -19,13 +19,13 @@ const Aboutus = () => {
                 ) : (
                     <div className="space-y-8">
                         <h1 className="font-primary font-extrabold text-white text-3xl sm:text-4xl md:text-5xl md:leading-tight">
-                            Easily capture emails on {' '}
+                            Just Give us your E-mail , We will keep you {' '}
                             <span className="text-palette-primary  text-blue-600">
-                                Notion.
+                                Updated .
                             </span>
                         </h1>
                         <p className="font-secondary text-palette-light  text-white text-base md:text-lg lg:text-xl">
-                            Capture your customer emails on a beautiful landing page that syncs with your Notion workspace.
+                            About our sales and promotions.
                         </p>
                         <input type="email"
 

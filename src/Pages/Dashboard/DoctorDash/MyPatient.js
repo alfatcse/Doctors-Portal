@@ -19,8 +19,8 @@ const MyPatient = () => {
         body: JSON.stringify()
     }).then(res => {
         setSpecialty(res.data.specialty);
-        console.log(res.data);
-        setDocName(res.data.name);
+        console.log(res.data.email);
+        setDocName(res.data.email);
         setDoc(res.data.isverified);
     }).catch(e => console.log(e))
     console.log('vv', docName);
