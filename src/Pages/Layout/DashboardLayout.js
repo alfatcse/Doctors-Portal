@@ -37,7 +37,7 @@ const DashboardLayout = () => {
                         }
                         {
                             isAdmin === 'Doctor' && <>
-                                {/* <li><Link to="/dashboard/myschedule">My Schedule</Link></li> */}
+                                <li><Link to="/dashboard/myschedule">My Schedule</Link></li>
                                 <li><Link to="/dashboard/patient">My Patient</Link></li>
                                 <li><Link to="/dashboard/newschedule">New Schedule</Link></li>
                             </>
