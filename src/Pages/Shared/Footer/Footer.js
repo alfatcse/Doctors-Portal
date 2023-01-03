@@ -3,7 +3,7 @@ import footerImg from '../../../assets/images/footer.png';
 const Footer = () => {
     return (
         <div style={{
-            backgroundImage: `url("https://res.cloudinary.com/dmsgdonea/image/upload/v1669569556/1000_F_506426044_aQElReVJ45luySKZ0yMzu9SzcnKZOYvH_heij6r.jpg")`,
+            backgroundImage: `url("https://i.ibb.co/JsLzhzB/footer.png")`,
             backgroundSize: 'cover'
         }} className='w-200'>
             <footer className="footer mt-5 footer-center p-10 text-primary-content">

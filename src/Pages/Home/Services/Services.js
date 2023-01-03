@@ -4,6 +4,7 @@ import cavity from '../../../assets/images/cavity.png';
 import whitening from '../../../assets/images/whitening.png';
 import Service from './Service';
 import care from '../../../assets/images/treatment.png'
+import { Link } from 'react-router-dom';
 const Services = () => {
     const serviceData = [
         {
@@ -44,8 +45,8 @@ const Services = () => {
 
                     <div>
                         <h1 className="text-5xl font-bold">Exceptional Dental Care, on Your Terms</h1>
-                        <p className="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
-                        <button className="btn btn-primary bg-gradient-to-r from-primary to-secondary text-white">Get Started</button>
+                        <p className="py-6">Helping you smile.If your smile is not becoming to you, then you should be coming to me! Improving the world, one smile at a time.It is all about you.It is time to smile again.</p>
+                        <Link to ='/appointment'><button className="btn btn-primary bg-gradient-to-r from-primary to-secondary text-white">Get Started</button></Link>
                     </div>
 
                 </div>
