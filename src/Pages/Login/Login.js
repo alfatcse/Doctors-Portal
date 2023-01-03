@@ -42,7 +42,7 @@ const Login = () => {
         setloginError('');
         signInWithGoogle().then(result => {
             console.log('emmmm', result.user.email);
-            axios.get(`http://localhost:5006/useremail?email=${result.user.email}`, {
+            axios.get(`https://doctors-portal-server-blush-psi.vercel.app/useremail?email=${result.user.email}`, {
                 method: 'GET',
                 headers: {
                     'content-type': 'application/json'

@@ -14,7 +14,7 @@ const ManageDoctors = () => {
         queryKey: ['doctors'],
         queryFn: async () => {
             try {
-                const res = await fetch('http://localhost:5006/doctors', {
+                const res = await fetch('https://doctors-portal-server-blush-psi.vercel.app/doctors', {
                     headers: {
                         authorization: `bearer ${localStorage.getItem('accessToken')}`
                     }
@@ -28,7 +28,7 @@ const ManageDoctors = () => {
         }
     })
     const handleDeleteDoctor = (doctor) => {
-        fetch(`http://localhost:5006/doctors/${doctor._id}`, {
+        fetch(`https://doctors-portal-server-blush-psi.vercel.app/doctors/${doctor._id}`, {
             method: 'DELETE',
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
@@ -46,7 +46,7 @@ const ManageDoctors = () => {
     }
     const handleVerified = (id, specialty) => {
         console.log(id, specialty);
-        fetch(`http://localhost:5006/verifydoctor/${id}`, {
+        fetch(`https://doctors-portal-server-blush-psi.vercel.app/verifydoctor/${id}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json'

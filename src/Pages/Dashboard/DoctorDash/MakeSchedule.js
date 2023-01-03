@@ -15,7 +15,7 @@ const MakeSchedule = () => {
     const { user } = useContext(AuthContext);
     const navigate = useNavigate();
     const [specialty, setSpecialty] = useState();
-    axios.get(`http://localhost:5006/useremail?email=${user.email}`, {
+    axios.get(`https://doctors-portal-server-blush-psi.vercel.app/useremail?email=${user.email}`, {
         method: 'GET',
         headers: {
             'content-type': 'application/json'
@@ -75,7 +75,7 @@ const MakeSchedule = () => {
         console.log('slotdate', Slotdata);
         setDateSlot([]);
         setValue('');
-        fetch(`http://localhost:5006/addslot/${user.email}`, {
+        fetch(`https://doctors-portal-server-blush-psi.vercel.app/addslot/${user.email}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json',

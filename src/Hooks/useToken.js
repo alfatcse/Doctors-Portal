@@ -4,7 +4,7 @@ const useToken = email => {
     const [token, setToken] = useState('');
     useEffect(() => {
         if (email) {
-            fetch(`http://localhost:5006/jwt?email=${email}`)
+            fetch(`https://doctors-portal-server-blush-psi.vercel.app/jwt?email=${email}`)
                 .then(res => res.json())
                 .then(data => {
                     console.log('token',data);

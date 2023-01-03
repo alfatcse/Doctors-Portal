@@ -12,7 +12,7 @@ const MyPatient = () => {
   const [docName, setDocName] = useState();
   let d = "";
   axios
-    .get(`http://localhost:5006/useremail?email=${user.email}`, {
+    .get(`https://doctors-portal-server-blush-psi.vercel.app/useremail?email=${user.email}`, {
       method: "GET",
       headers: {
         "content-type": "application/json",
@@ -30,7 +30,7 @@ const MyPatient = () => {
   d = doc;
   useEffect(() => {
     axios
-      .get(`http://localhost:5006/bookingpatient/${docName}`, {
+      .get(`https://doctors-portal-server-blush-psi.vercel.app/bookingpatient/${docName}`, {
         method: "GET",
         headers: {
           "content-type": "application/json",

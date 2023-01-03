@@ -6,7 +6,7 @@ const useAdmin = (email) => {
   const [isAdminLoading, setIsAdminLoading] = useState(true);
   useEffect(() => {
     if (email) {
-      fetch(`http://localhost:5006/users/admin/${email}`)
+      fetch(`https://doctors-portal-server-blush-psi.vercel.app/users/admin/${email}`)
         .then(res => res.json())
         .then(data => {
           console.log('dddd', data.role);

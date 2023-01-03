@@ -22,7 +22,7 @@ const SignUp = () => {
         queryKey: ['specialty'],
         queryFn: async () => {
             try {
-                const res = await fetch('http://localhost:5006/appointmentSpecialty');
+                const res = await fetch('https://doctors-portal-server-blush-psi.vercel.app/appointmentSpecialty');
                 const data = await res.json();
                 console.log(data);
                 return data;
@@ -96,7 +96,7 @@ const SignUp = () => {
     const saveUser = (name, email, role, registrationnumber, specialty, image) => {
         const user = { name, email, role, registrationnumber, specialty, image };
         console.log(user);
-        fetch('http://localhost:5006/users', {
+        fetch('https://doctors-portal-server-blush-psi.vercel.app/users', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -131,7 +131,7 @@ const SignUp = () => {
                         <label className="label">
                             <span className="label-text">Password</span>
                         </label>
-                        <input type="text" {...register("password", {
+                        <input type="password" {...register("password", {
                             required: "Password is Required",
                             minLength: { value: 6, message: "Password must be 6 character long" },
                             pattern: { value: /(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]/, message: "Password must be UpperCase and Special character" }
