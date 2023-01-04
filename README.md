@@ -4,7 +4,7 @@
 
 `2.Loged in patient can book appointment and after successful payment a confirmation email is sent`
 <p align="center">
-  <img src="https://i.ibb.co/kJhn229/4c443992f6106654fc270b3ca708d29e.png" width="350" alt="accessibility text">
+  <img src="https://i.ibb.co/Xz62MKt/Screenshot-from-2023-01-04-10-41-38.png" width="350" alt="accessibility text">
 </p>
 
 `3.loged in doctor can publish new slot along with date and time`
