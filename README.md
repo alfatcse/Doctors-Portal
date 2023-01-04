@@ -3,7 +3,10 @@
 ![alt text](https://i.ibb.co/kJhn229/4c443992f6106654fc270b3ca708d29e.png)
 
 `2.Loged in patient can book appointment and after successful payment a confirmation email is sent`
-
+<p align="center">
+  
+  <img src="https://i.ibb.co/kJhn229/4c443992f6106654fc270b3ca708d29e.png" width="350" alt="accessibility text">
+</p>
 `3.loged in doctor can publish new slot along with date and time`
 
 `4.loged in doctor can also view the patients who booked his slots`
