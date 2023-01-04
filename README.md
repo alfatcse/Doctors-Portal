@@ -1,7 +1,7 @@
 ### `Key Feature of the project`
 `1.Register new user as doctor or patient`
 
-![alt text](https://i.ibb.co/myppFsw/Screenshot-from-2023-01-04-10-48-26.png)
+![alt text](https://i.ibb.co/XFkF5Pn/Screenshot-from-2023-01-04-10-53-45.png)
 <p align="center">
   <img src="https://i.ibb.co/myppFsw/Screenshot-from-2023-01-04-10-48-26.png" width="350" alt="accessibility text">
 </p>
