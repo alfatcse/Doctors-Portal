@@ -2,9 +2,6 @@
 `1.Register new user as doctor or patient`
 
 ![alt text](https://i.ibb.co/XFkF5Pn/Screenshot-from-2023-01-04-10-53-45.png)
-<p align="center">
-  <img src="https://i.ibb.co/myppFsw/Screenshot-from-2023-01-04-10-48-26.png" width="350" alt="accessibility text">
-</p>
 
 `2.Loged in patient can book appointment and after successful payment a confirmation email is sent`
 <p align="center">
@@ -12,6 +9,9 @@
 </p>
 
 `3.loged in doctor can publish new slot along with date and time`
+<p align="center">
+  <img src="https://i.ibb.co/j8Yd7xp/Screenshot-from-2023-01-04-10-57-48.png" width="650" alt="accessibility text">
+</p>
 
 `4.loged in doctor can also view the patients who booked his slots`
 
