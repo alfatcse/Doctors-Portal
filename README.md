@@ -14,8 +14,13 @@
 </p>
 
 `4.loged in doctor can also view the patients who booked his slots`
-
-`5.Admin can view all users and can change the role as 'admin' of any user or as 'doctor' of any user who have registered as doctor`
+    <p align="center">
+  <img src="https://i.ibb.co/nP0Rh3m/Screenshot-from-2023-01-04-11-02-53.png" width="650" alt="accessibility text">
+</p>
+`5.Admin can view all users and can change the role as 'admin' or 'doctor' of any user or as 'doctor' of any user who have registered as doctor`
+ <p align="center">
+  <img src="https://i.ibb.co/BCbR7xQ/Screenshot-from-2023-01-04-11-05-49.png" width="650" alt="accessibility text">
+</p>
 
 `6.Admin can also delete any user`
 
