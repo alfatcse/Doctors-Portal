@@ -1,7 +1,7 @@
 ### `Key Feature of the project`
-`1.Register new user as doctor or patient`\
+`1.Register new user as doctor or patient`
 
-`2.Loged in patient can book appointment and after successful payment a confirmation email is sent`\
+`2.Loged in patient can book appointment and after successful payment a confirmation email is sent`
 
 `3.loged in doctor can publish new slot along with date and time`\
 
