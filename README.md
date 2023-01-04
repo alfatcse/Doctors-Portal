@@ -1,5 +1,6 @@
 ### `Key Feature of the project`
 `1.Register new user as doctor or patient`
+![alt text](https://i.ibb.co/kJhn229/4c443992f6106654fc270b3ca708d29e.png)
 
 `2.Loged in patient can book appointment and after successful payment a confirmation email is sent`
 
