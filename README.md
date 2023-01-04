@@ -1,7 +1,7 @@
 ### `Key Feature of the project`
 `1.Register new user as doctor or patient`
 <p align="center">
-  <img src="https://i.ibb.co/myppFsw/Screenshot-from-2023-01-04-10-48-26.png" width="650" alt="accessibility text">
+  <img src="https://i.ibb.co/myppFsw/Screenshot-from-2023-01-04-10-48-26.png" width="550" alt="accessibility text">
 </p>
 
 `2.Loged in patient can book appointment and after successful payment a confirmation email is sent`
