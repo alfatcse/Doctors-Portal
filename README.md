@@ -1,3 +1,10 @@
+
+### `Live Link`
+Open [http://docors-portal.web.app](https://doctors-portal-be73e.web.app) to view it in your browser.
+### `To experience the Admin role Please use the following credential`
+`admin user email: admin@a.com`
+
+`admin password: admin1234#`
 ### `Key Feature of the project`
 `1.Register new user as doctor or patient`
 
@@ -24,9 +31,3 @@
 
 `6.Admin can also delete any user`
 
-### `Live Link`
-Open [http://docors-portal.web.app](https://doctors-portal-be73e.web.app) to view it in your browser.
-### `To experience the Admin role Please use the following credential`
-`admin user email: admin@a.com`
-
-`admin password: admin1234#`
