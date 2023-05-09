@@ -5,7 +5,7 @@ import { CopyToClipboard } from "react-copy-to-clipboard"
 import Peer from "simple-peer"
 import io from "socket.io-client"
 
-const socket = io.connect('https://doctors-portal-server-blush-psi.vercel.app')
+const socket = io.connect('http://localhost:5006')
 const VedioCall = () => {
     const booking = useLoaderData();
 
@@ -75,7 +75,7 @@ const VedioCall = () => {
             const a={
                 collerid:me
             }
-            fetch(`https://doctors-portal-server-blush-psi.vercel.app/vediocall/${booking._id}`, {
+            fetch(`http://localhost:5006/vediocall/${booking._id}`, {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json',

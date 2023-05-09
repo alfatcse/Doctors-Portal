@@ -22,7 +22,7 @@ const MakeSchedule = () => {
   const [doc, setDoc] = useState();
   axios
     .get(
-      `https://doctors-portal-server-blush-psi.vercel.app/useremail?email=${user.email}`,
+      `http://localhost:5006/useremail?email=${user.email}`,
       {
         method: "GET",
         headers: {
@@ -37,7 +37,7 @@ const MakeSchedule = () => {
     .catch((e) => console.log(e));
   axios
     .get(
-      `https://doctors-portal-server-blush-psi.vercel.app/useremail?email=${user.email}`,
+      `http://localhost:5006/useremail?email=${user.email}`,
       {
         method: "GET",
         headers: {
@@ -111,7 +111,7 @@ const MakeSchedule = () => {
     setDateSlot([]);
     setValue("");
     fetch(
-      `https://doctors-portal-server-blush-psi.vercel.app/addslot/${user.email}`,
+      `http://localhost:5006/addslot/${user.email}`,
       {
         method: "PUT",
         headers: {

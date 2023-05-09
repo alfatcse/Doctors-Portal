@@ -10,7 +10,7 @@ const MySchedule = () => {
   const [doc, setDoc] = useState();
   axios
     .get(
-      `https://doctors-portal-server-blush-psi.vercel.app/useremail?email=${user.email}`,
+      `http://localhost:5006/useremail?email=${user.email}`,
       {
         method: "GET",
         headers: {
@@ -26,7 +26,7 @@ const MySchedule = () => {
   useEffect(() => {
     axios
       .get(
-        `https://doctors-portal-server-blush-psi.vercel.app/myschedule?email=${user.email}`,
+        `http://localhost:5006/myschedule?email=${user.email}`,
         {
           method: "GET",
           headers: {

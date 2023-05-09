@@ -6,6 +6,7 @@ import { toast } from 'react-hot-toast';
 import useToken from '../../Hooks/useToken';
 import { useQuery } from '@tanstack/react-query';
 import useTitleHook from '../../Hooks/useTitleHook';
+import { host } from '../../Utils/APIRoutes';
 const SignUp = () => {
     useTitleHook('Sign Up');
     const { register, handleSubmit, formState: { errors } } = useForm();
@@ -22,7 +23,7 @@ const SignUp = () => {
         queryKey: ['specialty'],
         queryFn: async () => {
             try {
-                const res = await fetch('https://doctors-portal-server-blush-psi.vercel.app/appointmentSpecialty');
+                const res = await fetch('http://localhost:5006/appointmentSpecialty');
                 const data = await res.json();
                 console.log(data);
                 return data;
@@ -96,7 +97,7 @@ const SignUp = () => {
     const saveUser = (name, email, role, registrationnumber, specialty, image) => {
         const user = { name, email, role, registrationnumber, specialty, image };
         console.log(user);
-        fetch('https://doctors-portal-server-blush-psi.vercel.app/users', {
+        fetch(`${host}/users`, {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -104,7 +105,7 @@ const SignUp = () => {
             body: JSON.stringify(user)
         }).then(res => res.json())
             .then(data => {
-                console.log(data);
+                console.log('signupdata',data);
                 setCreatedUserEmail(email);
             })
     }
@@ -166,7 +167,7 @@ const SignUp = () => {
                                 </label>
                                 <select {...register("specialty", { required: "Specialty is Required" })} className="select input-bordered w-full max-w-xs">
                                     {
-                                        specialties.map(specialty => <option value={specialty.name} key={specialty._id}>{specialty.name}</option>)
+                                        specialties?.map(specialty => <option value={specialty.name} key={specialty._id}>{specialty.name}</option>)
                                     }
                                     <option onChange={console.log('ssss')}>Svelte</option>
                                 </select>

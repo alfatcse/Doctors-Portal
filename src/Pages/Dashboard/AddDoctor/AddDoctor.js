@@ -15,7 +15,7 @@ const AddDoctor = () => {
         queryKey: ['specialty'],
         queryFn: async () => {
             try {
-                const res = await fetch('https://doctors-portal-server-blush-psi.vercel.app/appointmentSpecialty');
+                const res = await fetch('http://localhost:5006/appointmentSpecialty');
                 const data = await res.json();
                 console.log(data);
                 return data;
@@ -46,7 +46,7 @@ const AddDoctor = () => {
                         image: imgData.data.url
                     }
                     //save doctor profile to database
-                    fetch('https://doctors-portal-server-blush-psi.vercel.app/doctors', {
+                    fetch('http://localhost:5006/doctors', {
                         method: 'POST',
                         headers: {
                             'content-type': 'application/json',

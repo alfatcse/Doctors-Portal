@@ -43,7 +43,7 @@ const BookingModal = ({ treatment, selectedDate, setTreatment, refetch }) => {
         // display toast
         console.log('bbb', booking);
         if (user) {
-            fetch('https://doctors-portal-server-blush-psi.vercel.app/bookings', {
+            fetch('http://localhost:5006/bookings', {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json'
@@ -56,7 +56,7 @@ const BookingModal = ({ treatment, selectedDate, setTreatment, refetch }) => {
                     setTreatment(null);
                     if (data.acknowledged) {
                         toast.success('Booking Confirmed');
-                        fetch('https://doctors-portal-server-blush-psi.vercel.app/deleteslot', {
+                        fetch('http://localhost:5006/deleteslot', {
                             method: 'POST',
                             headers: {
                                 'content-type': 'application/json'
@@ -88,7 +88,7 @@ const BookingModal = ({ treatment, selectedDate, setTreatment, refetch }) => {
         })
     }
     useEffect(() => {
-        fetch(`https://doctors-portal-server-blush-psi.vercel.app/docemailslot/${value}`)
+        fetch(`http://localhost:5006/docemailslot/${value}`)
             .then(res => res.json())
             .then(data => {
                 setDate(data.docSlot);

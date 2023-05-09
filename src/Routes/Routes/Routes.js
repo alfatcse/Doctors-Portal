@@ -75,7 +75,7 @@ const router = createBrowserRouter([
             },
             {
                 path:'/dashboard/payment/:id',
-                loader:({params})=>fetch(`https://doctors-portal-server-blush-psi.vercel.app/booking/${params.id}`),
+                loader:({params})=>fetch(`http://localhost:5006/booking/${params.id}`),
                 element:<Payment></Payment>
             },
             {
@@ -92,7 +92,7 @@ const router = createBrowserRouter([
             },
             {
                 path:'/dashboard/vediocall/:id',
-                loader:({params})=>fetch(`https://doctors-portal-server-blush-psi.vercel.app/booking/${params.id}`),
+                loader:({params})=>fetch(`http://localhost:5006/booking/${params.id}`),
                 element:<VedioCall></VedioCall>
             }
         ]
