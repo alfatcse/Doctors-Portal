@@ -4,6 +4,7 @@ import AppointOption from './AppointOption';
 import BookingModal from '../BookingModal/BookingModal';
 import {useQuery} from '@tanstack/react-query';
 import Loading from '../../Shared/Loading/Loading';
+import { host } from '../../../Utils/APIRoutes';
 
 const AvailableAppointment = ({ selectedDate }) => {
    // const [appointmentOptions, setappointmentOptions] = useState([]);
@@ -14,9 +15,10 @@ const AvailableAppointment = ({ selectedDate }) => {
     const {data:appointmentOptions=[],refetch,isLoading}=useQuery({
         queryKey:['appointmentOptions',date],
         queryFn:async()=>{
-            const res=await fetch(`http://localhost:5006/appointmentOptions?date=${date}`);
+            const res=await fetch(`${host}/appointmentOptions`);
             const data=await res.json();
-            return data;
+            console.log(data.data);
+            return data.data;
         }
     })
     if(isLoading){
@@ -27,7 +29,7 @@ const AvailableAppointment = ({ selectedDate }) => {
             <p className='text-center text-4xl text-primary font-bold'>Available Appointment On:{format(selectedDate, 'PP')}</p>
             <div className='grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-6'>
                 { 
-                    appointmentOptions.map(option => <AppointOption key={option._id} option={option} setTreatment={setTreatment}></AppointOption>)
+                    appointmentOptions?.map(option => <AppointOption key={option._id} option={option} setTreatment={setTreatment}></AppointOption>)
                 }
             </div>
             {

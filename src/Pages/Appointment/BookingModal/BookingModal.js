@@ -6,6 +6,7 @@ import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../Context/AuthProvider';
 import { useQuery } from '@tanstack/react-query';
+import { host } from '../../../Utils/APIRoutes';
 const BookingModal = ({ treatment, selectedDate, setTreatment, refetch }) => {
     const { name, slots, price, doctors } = treatment;
     const { user } = useContext(AuthContext);
@@ -23,7 +24,6 @@ const BookingModal = ({ treatment, selectedDate, setTreatment, refetch }) => {
         const slot = form.slot.value;
         const doctor = form.doc.value;
         const AppointmentDate = form.date1.value;
-        
         const booking = {
             patient_name: patient_name,
             slot,
@@ -81,20 +81,22 @@ const BookingModal = ({ treatment, selectedDate, setTreatment, refetch }) => {
     const handleSlot = (e) => {
         console.log(e.target.value);
         setValue1(e.target.value);
-        date.map(p => {
+        date.docSlot.map(p => {
             if (p.date === e.target.value) {
                 setSlot(p.slot);
             }
         })
     }
     useEffect(() => {
-        fetch(`http://localhost:5006/docemailslot/${value}`)
+        fetch(`${host}/docemailslot/${value}`)
             .then(res => res.json())
             .then(data => {
-                setDate(data.docSlot);
+                console.log('slotData',data);
+                setDate(data?.data);
             })
 
     }, [value])
+    console.log('date',date,'len',date?.length);
     return (
         <>
             <input type="checkbox" id="booking-modal" className="modal-toggle" />
@@ -118,18 +120,21 @@ const BookingModal = ({ treatment, selectedDate, setTreatment, refetch }) => {
                             <span className="label-text">Please Select a Date</span>
                         </label>
                         {
-                            date.length === 0 ? <> <input disabled readOnly type="email" placeholder="Please Select a doctor first" className="input input-bordered input-info w-full " /></>
+                            date?.length === 0 ? <> <input disabled readOnly type="email" placeholder="Please Select a doctor first" className="input input-bordered input-info w-full " /></>
                                 : <><select name='date1' value={value1} onChange={handleSlot} className="select select-bordered w-full ">
                                     <option >Choose One</option> {
-                                        date.map((s, i) => <option key={i} value={s.date}>{s.date}</option>)
+                                        date?.docSlot?.map((s, i) => <option key={i} value={s.date}>{s.date}</option>)
                                     }
                                 </select></>
                         }
+                        <label className="label">
+                            <span className="label-text">Please Select a Slot</span>
+                        </label>
                         {
-                            slot.length === 0 ? <> <input disabled readOnly type="email" placeholder="Please Select a doctor first" className="input input-bordered input-info w-full " /></>
+                            slot?.length === 0 ? <> <input disabled readOnly type="email" placeholder="Please Select a slot" className="input input-bordered input-info w-full " /></>
                                 : <><select name='slot' className="select select-bordered w-full ">
                                     <option >Choose One</option>{
-                                        slot.map((s, i) => <option key={i} value={s}>{s}</option>)
+                                        slot?.map((s, i) => <option key={i} value={s}>{s}</option>)
                                     }
                                 </select></>
                         }
