@@ -28,9 +28,9 @@ const BookingModal = ({ treatment, selectedDate, setTreatment, refetch }) => {
             patient_name: patient_name,
             slot,
             AppointmentDate,
-            email,
-            phone,
-            doctor,
+            patient_email:email,
+            patient_Phone:phone,
+            doctor_email:doctor,
             treatment: name,
             price
         }
@@ -43,7 +43,7 @@ const BookingModal = ({ treatment, selectedDate, setTreatment, refetch }) => {
         // display toast
         console.log('bbb', booking);
         if (user) {
-            fetch('http://localhost:5006/bookings', {
+            fetch(`${host}/bookings`, {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json'
@@ -54,7 +54,7 @@ const BookingModal = ({ treatment, selectedDate, setTreatment, refetch }) => {
                 .then(data => {
                     console.log(data);
                     setTreatment(null);
-                    if (data.acknowledged) {
+                    if (data?.status==="Success") {
                         toast.success('Booking Confirmed');
                         fetch('http://localhost:5006/deleteslot', {
                             method: 'POST',
@@ -85,7 +85,7 @@ const BookingModal = ({ treatment, selectedDate, setTreatment, refetch }) => {
             if (p.date === e.target.value) {
                 setSlot(p.slot);
             }
-        })
+        }) 
     }
     useEffect(() => {
         fetch(`${host}/docemailslot/${value}`)
@@ -109,12 +109,10 @@ const BookingModal = ({ treatment, selectedDate, setTreatment, refetch }) => {
                         <label className="label">
                             <span className="label-text">Please Select a Doctor</span>
                         </label>
-
                         <select name='doc' value={value} onChange={handleChange} defaultValue={{ label: 'Select' }} className="select select-bordered w-full ">
                             <option >Choose One</option>{
                                 doctors?.map((doc, i) => <option key={i} value={doc.docEmail}>{doc.name}</option>)
                             }
-
                         </select>
                         <label className="label">
                             <span className="label-text">Please Select a Date</span>
