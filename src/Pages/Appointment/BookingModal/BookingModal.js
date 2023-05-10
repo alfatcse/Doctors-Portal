@@ -56,7 +56,7 @@ const BookingModal = ({ treatment, selectedDate, setTreatment, refetch }) => {
                     setTreatment(null);
                     if (data?.status==="Success") {
                         toast.success('Booking Confirmed');
-                        fetch('http://localhost:5006/deleteslot', {
+                        fetch(`${host}/deleteslot`, {
                             method: 'POST',
                             headers: {
                                 'content-type': 'application/json'
