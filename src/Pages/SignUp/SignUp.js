@@ -23,15 +23,14 @@ const SignUp = () => {
         queryKey: ['specialty'],
         queryFn: async () => {
             try {
-                const res = await fetch('http://localhost:5006/appointmentSpecialty');
+                const res = await fetch(`${host}/appointmentSpecialty`);
                 const data = await res.json();
-                console.log(data);
-                return data;
+                console.log(data?.data);
+                return data?.data;
             }
             catch (e) {
                 console.log(e);
             }
-
         }
     })
     const handleChange = (e) => {

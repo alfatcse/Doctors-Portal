@@ -10,6 +10,7 @@ import { host } from '../../../Utils/APIRoutes';
 const BookingModal = ({ treatment, selectedDate, setTreatment, refetch }) => {
     const { name, slots, price, doctors } = treatment;
     const { user } = useContext(AuthContext);
+    console.log(user);
     const [value, setValue] = useState("");
     const [date, setDate] = useState([]);
     const [slot, setSlot] = useState([]);
@@ -25,6 +26,7 @@ const BookingModal = ({ treatment, selectedDate, setTreatment, refetch }) => {
         const doctor = form.doc.value;
         const AppointmentDate = form.date1.value;
         const booking = {
+            patient_id:'63a029b84ccc9fde32696387',
             patient_name: patient_name,
             slot,
             AppointmentDate,
@@ -56,8 +58,9 @@ const BookingModal = ({ treatment, selectedDate, setTreatment, refetch }) => {
                     setTreatment(null);
                     if (data?.status==="Success") {
                         toast.success('Booking Confirmed');
-                        fetch(`${host}/deleteslot`, {
-                            method: 'POST',
+                        console.log('delSlot',delSlot);
+                        fetch(`${host}/slot`, {
+                            method: 'PATCH',
                             headers: {
                                 'content-type': 'application/json'
                             },
@@ -88,7 +91,7 @@ const BookingModal = ({ treatment, selectedDate, setTreatment, refetch }) => {
         }) 
     }
     useEffect(() => {
-        fetch(`${host}/docemailslot/${value}`)
+        fetch(`${host}/slot/${value}`)
             .then(res => res.json())
             .then(data => {
                 console.log('slotData',data);

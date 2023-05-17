@@ -3,11 +3,12 @@ import { AuthContext } from '../../../Context/AuthProvider';
 import { useQuery } from '@tanstack/react-query';
 import { Button } from 'react-day-picker';
 import { Link } from 'react-router-dom';
+import { host } from '../../../Utils/APIRoutes';
 const MyAppointment = () => {
     const { user } = useContext(AuthContext);
     console.log(user);
-    const url = `http://localhost:5006/booking?email=${user?.email}`;
-    const { data: bookings = [] } = useQuery({
+    const url = `${host}/bookings?email=${user?.email}`;
+    const { data: bookings = {} } = useQuery({
         queryKey: ['booking', user?.email],
         queryFn: async () => {
             const res = await fetch(url, {
@@ -17,12 +18,12 @@ const MyAppointment = () => {
                 }
             });
             const data = await res.json();
+            console.log('ddd',data);
             return data;
         }
     })
-    console.log(bookings);
+    console.log('llo',bookings?.data?.appointmentData);
     return (
-       
         <div className="overflow-x-auto mb-5">
             <h1 className='text-center font-bold mb-3 text-blue-600'>MY Appointment</h1>
             <table className="table w-full">
@@ -39,14 +40,12 @@ const MyAppointment = () => {
                 </thead>
                 <tbody>
                     {
-                        bookings?.map((booking, i) =>
+                        bookings?.data?.appointmentData?.map((booking, i) =>
                             <tr key={booking._id}>
                                 <th>{i + 1}</th>
-                                <td>{booking.patient_name}</td>
                                 <td>{booking.treatment}</td>
                                 <td>{booking.AppointmentDate}</td> 
                                 <td>{booking.slot}</td>
-                                {/* <td><Link to={`/dashboard/vediocall/${booking._id}`}><button className='btn btn-xs btn-danger'>Receive Call</button></Link></td> */}
                                 <td>{
                                     booking.price && !booking.paid && <Link to={`/dashboard/payment/${booking._id}`}><button className='btn btn-sm btn-primary'>Pay</button></Link>
                                 }
@@ -64,3 +63,4 @@ const MyAppointment = () => {
 };
 
 export default MyAppointment;
+ {/* <td><Link to={`/dashboard/vediocall/${booking._id}`}><button className='btn btn-xs btn-danger'>Receive Call</button></Link></td> */}
