@@ -1,20 +1,22 @@
-import { useEffect, useState } from "react"
-
+import { useEffect, useState } from "react";
+import { host } from "../Utils/APIRoutes";
 const useAdmin = (email) => {
-  console.log(email);
-  const [isAdmin, setIsAdmin] = useState('');
+  
+  const [isAdmin, setIsAdmin] = useState("");
   const [isAdminLoading, setIsAdminLoading] = useState(true);
   useEffect(() => {
     if (email) {
-      fetch(`http://localhost:5006/users/admin/${email}`)
-        .then(res => res.json())
-        .then(data => {
-          console.log('dddd', data.role);
-          setIsAdmin(data.role);
-          setIsAdminLoading(false);
-        })
+      async function fetchData() {
+        await fetch(`${host}/usersrole?email=${email}`)
+          .then((res) => res.json())
+          .then((data) => {
+            setIsAdmin(data.data);
+            setIsAdminLoading(false);
+          });
+      }
+      fetchData();
     }
-  }, [email])
+  }, [email]);
   return [isAdmin, isAdminLoading];
-}
+};
 export default useAdmin;

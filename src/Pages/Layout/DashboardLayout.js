@@ -8,9 +8,7 @@ import Navbar from '../Shared/Navbar/Navbar';
 const DashboardLayout = () => {
     useTitleHook('Dashboard');
     const { user } = useContext(AuthContext);
-    console.log('', user);
     const [isAdmin] = useAdmin(user?.email);
-    console.log('das', isAdmin);
     return (
         <div>
             <Navbar></Navbar>
@@ -22,11 +20,9 @@ const DashboardLayout = () => {
                 <div className="drawer-side">
                     <label htmlFor="dashboard-drawer" className="drawer-overlay"></label>
                     <ul className="menu p-4 bg-base-100 w-80 text-base-content">
-                        {/* {
-                            isAdmin==='Patient'&&<> */}
+                        {
                              <li><Link to="/dashboard">My Appointment</Link></li>
-                            {/* </>
-                        } */}
+                           }
                        
                         {
                             isAdmin === 'admin' && <>

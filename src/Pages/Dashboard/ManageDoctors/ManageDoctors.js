@@ -4,23 +4,24 @@ import { async } from '@firebase/util';
 import Loading from '../../Shared/Loading/Loading';
 import ConfirmationModal from '../../Shared/ConfirmationModal/ConfirmationModal';
 import toast from 'react-hot-toast';
+import { host } from '../../../Utils/APIRoutes';
 const ManageDoctors = () => {
     const [deletingDoctor, setDeletingDoctor] = useState(null);
     const closeModal = () => {
         setDeletingDoctor(null);
     }
-
     const { data: doctors, isLoading, refetch } = useQuery({
         queryKey: ['doctors'],
         queryFn: async () => {
             try {
-                const res = await fetch('http://localhost:5006/doctors', {
+                const res = await fetch(`${host}/users?userType=Doctor`, {
                     headers: {
                         authorization: `bearer ${localStorage.getItem('accessToken')}`
                     }
                 })
                 const data = await res.json();
-                return data;
+                console.log('ddd',data);
+                return data?.data;
             }
             catch (e) {
                 console.log(e)
@@ -78,7 +79,7 @@ const ManageDoctors = () => {
                     </thead>
                     <tbody>
                         {
-                            doctors.map((doctor, i) =>
+                            doctors?.map((doctor, i) =>
                                 <tr key={doctor._id}>
                                     <th>{i + 1}</th>
                                     <td>

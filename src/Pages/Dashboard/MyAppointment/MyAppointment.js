@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { host } from '../../../Utils/APIRoutes';
 const MyAppointment = () => {
     const { user } = useContext(AuthContext);
-    console.log(user);
+   
     const url = `${host}/bookings?email=${user?.email}`;
     const { data: bookings = {} } = useQuery({
         queryKey: ['booking', user?.email],
@@ -22,7 +22,7 @@ const MyAppointment = () => {
             return data;
         }
     })
-    console.log('llo',bookings?.data?.appointmentData);
+    
     return (
         <div className="overflow-x-auto mb-5">
             <h1 className='text-center font-bold mb-3 text-blue-600'>MY Appointment</h1>
