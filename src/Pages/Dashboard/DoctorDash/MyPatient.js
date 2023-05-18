@@ -3,6 +3,7 @@ import { AuthContext } from "../../../Context/AuthProvider";
 import axios from "axios";
 import VedioCall from "./VedioCall";
 import { Link } from "react-router-dom";
+import { host } from "../../../Utils/APIRoutes";
 
 const MyPatient = () => {
   const { user } = useContext(AuthContext);
@@ -12,7 +13,7 @@ const MyPatient = () => {
   const [docName, setDocName] = useState();
   let d = "";
   axios
-    .get(`http://localhost:5006/useremail?email=${user.email}`, {
+    .get(`${host}/useremail?email=${user.email}`, {
       method: "GET",
       headers: {
         "content-type": "application/json",
