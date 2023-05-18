@@ -8,7 +8,6 @@ import Login from "../../Pages/Login/Login";
 import SignUp from "../../Pages/SignUp/SignUp";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
 import MyAppointment from "../../Pages/Dashboard/MyAppointment/MyAppointment";
-import Allusers from "../../Pages/Dashboard/Allusers/Allusers";
 import AdminRoute from "../../Routes/AminRoute/AdminRoute";
 import AddDoctor from "../../Pages/Dashboard/AddDoctor/AddDoctor";
 import ManageDoctors from "../../Pages/Dashboard/ManageDoctors/ManageDoctors";
@@ -20,6 +19,7 @@ import MakeSchedule from "../../Pages/Dashboard/DoctorDash/MakeSchedule";
 import VedioCall from "../../Pages/Dashboard/DoctorDash/VedioCall";
 import Testimonial from "../../Pages/Home/Testimonial/Testimonial";
 import Aboutus from "../../Pages/Home/Testimonial/Aboutus";
+import AllPatient from "../../Pages/Dashboard/AllPatient/AllPatient";
 const router = createBrowserRouter([
     {
         path: '/',
@@ -62,8 +62,8 @@ const router = createBrowserRouter([
                 element:<MyAppointment></MyAppointment>
             },
             {
-                path:'/dashboard/allusers',
-                element:<AdminRoute><Allusers></Allusers></AdminRoute>
+                path:'/dashboard/patient',
+                element:<AdminRoute><AllPatient></AllPatient></AdminRoute>
             },
             {
                 path:'/dashboard/adddoctor',

@@ -29,7 +29,7 @@ const ManageDoctors = () => {
         }
     })
     const handleDeleteDoctor = (doctor) => {
-        fetch(`http://localhost:5006/doctors/${doctor._id}`, {
+        fetch(`${host}/users?id=${doctor._id}`, {
             method: 'DELETE',
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
@@ -47,13 +47,14 @@ const ManageDoctors = () => {
     }
     const handleVerified = (id, specialty) => {
         console.log(id, specialty);
-        fetch(`http://localhost:5006/verifydoctor/${id}`, {
-            method: 'PUT',
+        fetch(`${host}/users?id=${id}`, {
+            method: 'PATCH',
             headers: {
                 'content-type': 'application/json'
             },
             body: JSON.stringify({ specialty })
         }).then(res=>{
+            console.log(res);
             if(res.status===200){
                 refetch();
             }
@@ -101,7 +102,7 @@ const ManageDoctors = () => {
                                         }
                                     </td>
                                     <td>
-                                        <label onClick={() => setDeletingDoctor(doctor)} htmlFor="confirmation-modal" className="btn btn-circle btn-outline"><svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg></label>
+                                        <label onClick={() => setDeletingDoctor(doctor)} htmlFor="confirmation-modal" className="btn btn-circle hover:bg-red-500 btn-outline"><svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg></label>
                                     </td>
                                 </tr>
                             )
@@ -117,7 +118,7 @@ const ManageDoctors = () => {
                     modalData={deletingDoctor}
                     title={'Are you sure?'}
                     successButtonName="Delete"
-                    message={`he will ${deletingDoctor.name} deleted forever`}>
+                    message={`User named ${deletingDoctor.name} will be deleted forever !!!`}>
                 </ConfirmationModal>
             }
         </div>
