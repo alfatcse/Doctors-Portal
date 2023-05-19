@@ -10,6 +10,7 @@ import { AuthContext } from "../../../Context/AuthProvider";
 import axios from "axios";
 import { Navigate, useNavigate } from "react-router-dom";
 import moment from "moment";
+import { host } from "../../../Utils/APIRoutes";
 const MakeSchedule = () => {
   const {
     register,
@@ -19,37 +20,32 @@ const MakeSchedule = () => {
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
   const [specialty, setSpecialty] = useState();
+  
   const [doc, setDoc] = useState();
   axios
-    .get(
-      `http://localhost:5006/useremail?email=${user.email}`,
-      {
-        method: "GET",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify(),
-      }
-    )
+    .get(`${host}/user?userEmail=${user?.email}`, {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(),
+    })
     .then((res) => {
-      setDoc(res.data.isverified);
+      setDoc(res.data?.data?.isverified);
     })
     .catch((e) => console.log(e));
-  axios
-    .get(
-      `http://localhost:5006/useremail?email=${user.email}`,
-      {
-        method: "GET",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify(),
-      }
-    )
-    .then((res) => {
-      setSpecialty(res.data.specialty);
-    })
-    .catch((e) => console.log(e));
+  // axios
+  //   .get(`http://localhost:5006/useremail?email=${user.email}`, {
+  //     method: "GET",
+  //     headers: {
+  //       "content-type": "application/json",
+  //     },
+  //     body: JSON.stringify(),
+  //   })
+  //   .then((res) => {
+  //     setSpecialty(res.data.specialty);
+  //   })
+  //   .catch((e) => console.log(e));
   var option = {
     weekday: "long",
     year: "numeric",
@@ -105,21 +101,19 @@ const MakeSchedule = () => {
   ];
   const handleSave = () => {
     const Slotdata = {
-      doctorSlot: dateSlot,
+      docEmail:user?.email,
+      docSlot: dateSlot,
     };
     console.log("slotdate", Slotdata);
     setDateSlot([]);
     setValue("");
-    fetch(
-      `http://localhost:5006/addslot/${user.email}`,
-      {
-        method: "PUT",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify(dateSlot),
-      }
-    )
+    fetch(`${host}/slot`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(Slotdata),
+    })
       .then((res) => res.json())
       .then((result) => {});
   };
@@ -134,6 +128,14 @@ const MakeSchedule = () => {
     new Date(2022, 12, 20),
     { from: new Date(2022, 4, 18), to: new Date(2022, 4, 29) },
   ];
+  const getSlot=()=>{
+    console.log('dayslot');
+  }
+  const [disabled, setDisabled] = useState(false);
+
+  const onClick = () => {
+    setDisabled(true);
+  };
   return (
     <div>
       {doc === "verified" ? (
@@ -180,19 +182,21 @@ const MakeSchedule = () => {
                   className="modal-toggle"
                 />
                 <div className="modal ">
-                  <div className="modal-box ml-10">
+                  <div className="modal-box ml-10 grid grid-cols-1 gap-2 justify-items-center">
                     {/* <label className="label">
                                 <span className="label-text font-bold">Service Charge</span>
                             </label>
                             <input className='justify-items-center' type='text' id='price' name='price' placeholder='Price' onChange={handlePrice} ></input> */}
-                    {daySlot.map((d) => (
-                      <>
+                    { 
+                      daySlot.map((d) => (
+                      < >
                         <p className="font-bold">{d.date}</p>
                         <form
-                          className="g-5 justify-items-center"
-                          onSubmit={handleDaySlot(d)}
+                          className="gap-2 justify-items-center"
+                         onSubmit={handleDaySlot(d)}
                         >
-                          <select
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 justify-items-center">
+                          <select   
                             {...register("slot1", {
                               required: "User Type is Required",
                             })}
@@ -201,7 +205,7 @@ const MakeSchedule = () => {
                             <option value="Select" selected>
                               Select a Slot
                             </option>
-                            <option value="10.00 AM-12.00 AM">
+                            <option  value="10.00 AM-12.00 AM">
                               10.00 AM-12.00 AM
                             </option>
                             <option value="12.00 AM-02.00 PM">
@@ -213,7 +217,7 @@ const MakeSchedule = () => {
                               {errors.slot1.message}
                             </p>
                           )}
-                          <select
+                          <select   
                             {...register("slot2", {
                               required: "User Type is Required",
                             })}
@@ -235,12 +239,13 @@ const MakeSchedule = () => {
                             </p>
                           )}
                           <button
-                            className="btn btn-primary"
+                            className="btn btn-xs"
                             value="Log In"
                             type="submit"
                           >
                             Add
-                          </button>
+                          </button> 
+                          </div>
                         </form>
                       </>
                     ))}
@@ -269,5 +274,4 @@ const MakeSchedule = () => {
     </div>
   );
 };
-
 export default MakeSchedule;
