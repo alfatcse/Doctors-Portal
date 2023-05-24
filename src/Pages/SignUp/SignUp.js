@@ -62,7 +62,7 @@ const SignUp = () => {
                     createUser(data.email, data.password)
                         .then(result => {
                             console.log(result.user);
-                            toast.success('User Created');
+                            toast.success('Profile Created');
                             const userinfo = {
                                 displayName: data.name
                             }

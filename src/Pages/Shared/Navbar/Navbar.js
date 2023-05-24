@@ -5,6 +5,7 @@ import { AuthContext } from "../../../Context/AuthProvider";
 const Navbar = () => {
   const { user, LogOut } = useContext(AuthContext);
   const handlogout = () => {
+    localStorage.clear();
     LogOut()
       .then(() => {})
       .catch((e) => console.error(e));

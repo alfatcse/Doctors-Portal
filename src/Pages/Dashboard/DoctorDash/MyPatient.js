@@ -4,7 +4,6 @@ import axios from "axios";
 import VedioCall from "./VedioCall";
 import { Link } from "react-router-dom";
 import { host } from "../../../Utils/APIRoutes";
-
 const MyPatient = () => {
   const { user } = useContext(AuthContext);
   const [specialty, setSpecialty] = useState();
@@ -13,25 +12,26 @@ const MyPatient = () => {
   const [docName, setDocName] = useState();
   let d = "";
   axios
-    .get(`${host}/useremail?email=${user.email}`, {
+    .get(`${host}/user?userEmail=${user?.email}`, {
       method: "GET",
       headers: {
         "content-type": "application/json",
+        authorization: `bearer ${localStorage.getItem('accessToken')}`,
       },
       body: JSON.stringify(),
     })
     .then((res) => {
-      setSpecialty(res.data.specialty);
-      console.log(res.data.email);
-      setDocName(res.data.email);
-      setDoc(res.data.isverified);
+      setSpecialty(res.data?.data?.specialty);
+      console.log('ress',res.data?.data);
+      setDocName(res.data?.data?.email);
+      setDoc(res.data?.data?.isverified);
     })
     .catch((e) => console.log(e));
   console.log("vv", docName);
   d = doc;
   useEffect(() => {
     axios
-      .get(`http://localhost:5006/bookingpatient/${docName}`, {
+      .get(`${host}/${docName}`, {
         method: "GET",
         headers: {
           "content-type": "application/json",
@@ -43,7 +43,7 @@ const MyPatient = () => {
         setPatient(res.data);
       })
       .catch((e) => console.log(e));
-  }, [specialty]);
+  }, [specialty,docName]);
   return (
     <div>
       {doc === "verified" ? (
@@ -104,11 +104,10 @@ const MyPatient = () => {
         </>
       ) : (
         <h1 className="text-center font-bold mb-3 text-blue-600">
-          Your are not verified by the Admin.Please wait for a while
+          Your are not verified by the Admin.Please wait for a while !!
         </h1>
       )}
     </div>
   );
 };
-
 export default MyPatient;

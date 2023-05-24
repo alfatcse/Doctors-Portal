@@ -25,7 +25,7 @@ const MakeSchedule = () => {
   axios
     .get(`${host}/user?userEmail=${user?.email}`, {
       method: "GET",
-      headers: {
+      headers: { 
         "content-type": "application/json",
       },
       body: JSON.stringify(),

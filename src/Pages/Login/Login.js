@@ -5,6 +5,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthProvider';
 import useTitleHook from '../../Hooks/useTitleHook';
 import useToken from '../../Hooks/useToken';
+import { host } from '../../Utils/APIRoutes';
 
 const Login = () => {
     useTitleHook('Log in');
@@ -13,36 +14,28 @@ const Login = () => {
     const [loginError, setloginError] = useState('');
     const [loginEmail, setLoginEmail] = useState('');
     const [token] = useToken(loginEmail);
-   
     const location = useLocation();
     const navigate = useNavigate();
     const from = location.state?.from || '/';
     if (token) {
         navigate(from, { replace: true })
     }
-    
     const handleLogin = (data) => {
         console.log(data.email);
         setloginError('');
         signIn(data.email, data.password)
             .then(result => {
-                //  console.log('userr',result.user.email);
                 setLoginEmail(result.user.email);
-               
-
-                //navigate(from, { replace: true })
             })
             .catch(e => {
                 console.error(e.message);
                 setloginError(e.message);
             })
     }
-
     const hadleGoogleSignin = () => {
         setloginError('');
         signInWithGoogle().then(result => {
-            console.log('emmmm', result.user.email);
-            axios.get(`http://localhost:5006/useremail?email=${result.user.email}`, {
+            axios.get(`${host}/user?userEmail=${result.user.email}`, {
                 method: 'GET',
                 headers: {
                     'content-type': 'application/json'
@@ -64,7 +57,6 @@ const Login = () => {
                 setloginError(e.message);
             })
     }
-
     return (
         <div className='h-[800px] flex justify-center items-center'>
             <div className='w-96 p-7'>

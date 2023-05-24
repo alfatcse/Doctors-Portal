@@ -83,7 +83,7 @@ const router = createBrowserRouter([
                 element:<MySchedule></MySchedule> 
             },
             {
-                path:'/dashboard/patient',
+                path:'/dashboard/mypatient',
                 element:<MyPatient></MyPatient>
             },
             {
