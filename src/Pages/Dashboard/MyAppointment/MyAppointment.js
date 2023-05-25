@@ -30,11 +30,9 @@ const MyAppointment = () => {
                 <thead> 
                     <tr>
                         <th></th>
-                        <th>Name</th>
-                        <th>Treatment</th>
+                        <th>Treatment Name</th>
                         <th>Date</th>
                         <th>Time</th>
-                        <th>Call</th>
                         <th>Payment</th>
                     </tr>
                 </thead>
@@ -51,7 +49,7 @@ const MyAppointment = () => {
                                 }
                                     {
                                         booking.price && booking.paid && <span className='text-green-500 font-bold'>Paid</span>
-                                    }</td>
+                                    }</td> 
                             </tr>
                         )
                     }

@@ -20,6 +20,7 @@ import VedioCall from "../../Pages/Dashboard/DoctorDash/VedioCall";
 import Testimonial from "../../Pages/Home/Testimonial/Testimonial";
 import Aboutus from "../../Pages/Home/Testimonial/Aboutus";
 import AllPatient from "../../Pages/Dashboard/AllPatient/AllPatient";
+import { host } from "../../Utils/APIRoutes";
 const router = createBrowserRouter([
     {
         path: '/',
@@ -75,7 +76,6 @@ const router = createBrowserRouter([
             },
             {
                 path:'/dashboard/payment/:id',
-                loader:({params})=>fetch(`http://localhost:5006/booking/${params.id}`),
                 element:<Payment></Payment>
             },
             {

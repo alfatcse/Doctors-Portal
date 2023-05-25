@@ -67,7 +67,15 @@ const SignUp = () => {
                                 displayName: data.name
                             }
                             updateUser(userinfo).then(() => {
-                                saveUser(data.name, data.email, data.usertype, data?.registrationnumber, data?.specialty, imgData.data.url);
+                                const user={
+                                    name:data.name,
+                                    email:data.email,
+                                    role:data.usertype,
+                                    registrationnumber:data?.registrationnumber,
+                                    specialty:data?.specialty,
+                                    image:imgData.data.url
+                                }
+                                saveUser(user);
                             }).catch(e => console.error(e))
                         })
                         .catch(error => {
@@ -81,11 +89,17 @@ const SignUp = () => {
     const hadleGoogleSignin = () => {
         setSignUpError('');
         signInWithGoogle().then(result => {
-            console.log('user', result.user.displayName);
+            console.log('userdata', result.user);
             const userinfo = {
                 displayName: result.name
             }
-            saveUser(result.user.displayName, result.user.email, "Patient", "no registration number", result.user.photoURL);
+            const user={
+                name:result.user.displayName,
+                email:result.user.email,
+                role:"Patient",
+                image:result.user.photoURL
+            }
+            saveUser(user);
             updateUser(userinfo).then(() => { }).catch(e => console.error(e))
         })
             .catch(e => {
@@ -93,9 +107,9 @@ const SignUp = () => {
                 setSignUpError(e.message);
             })
     }
-    const saveUser = (name, email, role, registrationnumber, specialty, image) => {
-        const user = { name, email, role, registrationnumber, specialty, image };
-        console.log(user);
+    const saveUser = (user) => {
+        // const user = { name, email, role, registrationnumber, specialty, image };
+        console.log('saveUser',user);
         fetch(`${host}/users`, {
             method: 'POST',
             headers: {
@@ -105,7 +119,7 @@ const SignUp = () => {
         }).then(res => res.json())
             .then(data => {
                 console.log('signupdata',data);
-                setCreatedUserEmail(email);
+                setCreatedUserEmail(user?.email);
             })
     }
     return (

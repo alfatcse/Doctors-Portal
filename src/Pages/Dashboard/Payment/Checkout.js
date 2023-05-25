@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { success } from 'daisyui/src/colors';
+import { host } from '../../../Utils/APIRoutes';
 const Checkout = ({ booking }) => {
     const [cardError, setCardError] = useState('');
     const [Success, setSuccess] = useState('');
-    const [transactionId, setTransactionId] = useState('');
+    const [transactionId, setTransactionId] = useState(''); 
     const [processing, setProcessing] = useState(false);
     const stripe = useStripe();
     const elements = useElements();
@@ -12,8 +13,7 @@ const Checkout = ({ booking }) => {
     const [clientSecret, setClientSecret] = useState("");
     useEffect(() => {
         // Create PaymentIntent as soon as the page loads
-
-        fetch("http://localhost:5006/create-payment-intent", {
+        fetch(`${host}/create-payment-intent`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -24,7 +24,6 @@ const Checkout = ({ booking }) => {
             .then((res) => res.json())
             .then((data) => setClientSecret(data.clientSecret));
     }, [price]);
-
     const handleSubmit = async (event) => {
         event.preventDefault();
         if (!stripe || !elements) {
@@ -71,7 +70,8 @@ const Checkout = ({ booking }) => {
                 email,
                 bookingID:_id
             }
-            fetch('http://localhost:5006/payment', {
+            console.log(payment);
+            fetch(`${host}/payment`, {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json',
@@ -113,7 +113,6 @@ const Checkout = ({ booking }) => {
                 <button className='btn btn-sm mt-4' type="submit" disabled={!stripe || !clientSecret || processing}>
                     Pay
                 </button>
-
             </form>
             <p className="text-red-600">{cardError}</p>
             {
@@ -125,5 +124,4 @@ const Checkout = ({ booking }) => {
         </>
     );
 };
-
 export default Checkout;

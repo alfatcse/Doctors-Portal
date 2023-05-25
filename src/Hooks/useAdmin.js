@@ -23,7 +23,6 @@ const useAdmin = (email) => {
       fetchData();
     }
   }, [email]);
-  console.log("role", isAdmin);
   return [isAdmin, isAdminLoading];
 };
 export default useAdmin;

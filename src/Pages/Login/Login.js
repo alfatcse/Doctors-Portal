@@ -43,7 +43,6 @@ const Login = () => {
                 body: JSON.stringify()
             }).then(res => {
                 console.log(res.data);
-               
                 if (res.data.email === result.user.email) {
                     setLoginEmail(result.user.email);
                 }

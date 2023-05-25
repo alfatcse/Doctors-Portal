@@ -11,7 +11,6 @@ const BookingModal = ({ treatment, selectedDate, setTreatment, refetch }) => {
   const { name, slots, price, doctors } = treatment;
   const { user } = useContext(AuthContext);
   const [singleUser, setSingleUser] = useState();
-  console.log("uuu", user);
   useEffect(() => {
     if (user?.email) {
       async function fetchData() {
@@ -25,14 +24,13 @@ const BookingModal = ({ treatment, selectedDate, setTreatment, refetch }) => {
         })
           .then((res) => res.json())
           .then((data) => {
-            console.log('dd',data);
             setSingleUser(data.data);
           });
       }
       fetchData();
     }
   }, [user?.email]);
-  console.log('sin',singleUser);
+ 
   const [value, setValue] = useState("");
   const [date, setDate] = useState([]);
   const [slot, setSlot] = useState([]);
@@ -65,7 +63,6 @@ const BookingModal = ({ treatment, selectedDate, setTreatment, refetch }) => {
     };
     //todo :: send data to the server and once data is saved and close modal
     // display toast
-    console.log("bbb", booking);
     if (user) {
       fetch(`${host}/bookings`, {
         method: "POST",
@@ -76,11 +73,11 @@ const BookingModal = ({ treatment, selectedDate, setTreatment, refetch }) => {
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
+        
           setTreatment(null);
           if (data?.status === "Success") {
             toast.success("Booking Confirmed");
-            console.log("delSlot", delSlot);
+            
             fetch(`${host}/slot`, {
               method: "PATCH",
               headers: {
@@ -96,7 +93,7 @@ const BookingModal = ({ treatment, selectedDate, setTreatment, refetch }) => {
           }
         });
     } else {
-      console.log("No userrr");
+     
       navigate("/login");
     }
   };
@@ -104,7 +101,7 @@ const BookingModal = ({ treatment, selectedDate, setTreatment, refetch }) => {
     setValue(e.target.value);
   };
   const handleSlot = (e) => {
-    console.log(e.target.value);
+
     setValue1(e.target.value);
     date.docSlot.map((p) => {
       if (p.date === e.target.value) {
@@ -116,11 +113,11 @@ const BookingModal = ({ treatment, selectedDate, setTreatment, refetch }) => {
     fetch(`${host}/slot/${value}`)
       .then((res) => res.json())
       .then((data) => {
-        console.log("slotData", data);
+       
         setDate(data?.data);
       });
   }, [value]);
-  console.log("date", date, "len", date?.length);
+  
   return (
     <>
       <input type="checkbox" id="booking-modal" className="modal-toggle" />
