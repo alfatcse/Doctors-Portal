@@ -12,7 +12,12 @@ const AllPatient = () => {
     const { data: users = [], refetch } = useQuery({
         queryKey: ['users'],
         queryFn: async () => {
-            const res = await fetch(`${host}/users?userType=Patient`);
+            const res = await fetch(`${host}/users?userType=Patient`,{
+                method: 'PATCH',
+                headers:{
+                    authorization:`bearer ${localStorage.getItem('accessToken')}`
+                }
+            });
             const data = await res.json();
             console.log('pppp',data);
             return data?.data;

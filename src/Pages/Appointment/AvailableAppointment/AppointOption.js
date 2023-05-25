@@ -4,7 +4,7 @@ import { AuthContext } from '../../../Context/AuthProvider';
 import useTitleHook from '../../../Hooks/useTitleHook';
 
 const AppointOption = ({ option, setTreatment }) => {
-    useTitleHook('Appointment');
+    useTitleHook('Appointment'); 
     const { name, price,slots,doctors } = option;
     const { user } = useContext(AuthContext);
     const navigate = useNavigate();

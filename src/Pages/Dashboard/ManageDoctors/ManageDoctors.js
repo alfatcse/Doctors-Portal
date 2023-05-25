@@ -50,7 +50,8 @@ const ManageDoctors = () => {
         fetch(`${host}/users?id=${id}`, {
             method: 'PATCH',
             headers: {
-                'content-type': 'application/json'
+                'content-type': 'application/json',
+                authorization: `bearer ${localStorage.getItem('accessToken')}`
             },
             body: JSON.stringify({ specialty })
         }).then(res=>{
