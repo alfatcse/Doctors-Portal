@@ -70,7 +70,8 @@ const Checkout = ({ booking }) => {
                 email,
                 bookingID:_id
             }
-            console.log(payment);
+            console.log('payy',payment);
+            console.log('payment',payment);
             fetch(`${host}/payment`, {
                 method: 'POST',
                 headers: {

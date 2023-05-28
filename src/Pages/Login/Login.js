@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthProvider';
@@ -35,21 +35,7 @@ const Login = () => {
     const hadleGoogleSignin = () => {
         setloginError('');
         signInWithGoogle().then(result => {
-            axios.get(`${host}/user?userEmail=${result.user.email}`, {
-                method: 'GET',
-                headers: {
-                    'content-type': 'application/json'
-                },
-                body: JSON.stringify()
-            }).then(res => {
-                console.log(res.data);
-                if (res.data.email === result.user.email) {
-                    setLoginEmail(result.user.email);
-                }
-                else {
-                    setloginError('User not exist');
-                }
-            }).catch(e => console.log(e))
+            setLoginEmail(result.user.email);
         })
             .catch(e => {
                 console.log(e)

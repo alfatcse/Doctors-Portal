@@ -1,14 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useLoaderData, useNavigation, useParams } from 'react-router-dom';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
 import Checkout from '../Payment/Checkout';
 import Loading from '../../Shared/Loading/Loading';
 import { host } from '../../../Utils/APIRoutes';
+import { AuthContext } from '../../../Context/AuthProvider';
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PK);
 const Payment = () => {
     const {id}=useParams();
     const [booking,setBooking] = useState();
+    const { user } = useContext(AuthContext);
+    console.log('user',user);
     useEffect(() => {
         if (id) {
           async function fetchData() {
@@ -22,12 +25,19 @@ const Payment = () => {
             })
               .then((res) => res.json())
               .then((data) => {
-                setBooking(data.data);
+                console.log('bbb',data);
+                const b={
+                    price:data.data.price,
+                    email:user.email,
+                    patient_name:user.displayName,
+                    _id:data.data._id
+                }
+                setBooking(b);
               });
           }
           fetchData();
         }
-      }, [id]);
+      }, [id,user.email,user.displayName]);
     const navigation=useNavigation();
     if(navigation.state==='loading')
     {
