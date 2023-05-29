@@ -16,86 +16,101 @@ import DisplayError from "../../Pages/Shared/DisplayError/DisplayError";
 import MySchedule from "../../Pages/Dashboard/DoctorDash/MySchedule";
 import MyPatient from "../../Pages/Dashboard/DoctorDash/MyPatient";
 import MakeSchedule from "../../Pages/Dashboard/DoctorDash/MakeSchedule";
-import VedioCall from "../../Pages/Dashboard/DoctorDash/VedioCall";
 import Testimonial from "../../Pages/Home/Testimonial/Testimonial";
 import Aboutus from "../../Pages/Home/Testimonial/Aboutus";
 import AllPatient from "../../Pages/Dashboard/AllPatient/AllPatient";
 import { host } from "../../Utils/APIRoutes";
 const router = createBrowserRouter([
-    {
-        path: '/',
-        element: <Main></Main>,
-        errorElement:<DisplayError></DisplayError>,
-        children: [
-            {
-                path: '/',
-                element: <Home></Home>
-            },
-            {
-                path:'/login',
-                element:<Login></Login>
-            },
-            {
-                path:'/appointment',
-                element:<Appointment></Appointment>
-            },
-            {
-                path:'/signup',
-                element:<SignUp></SignUp>
-            },
-            {
-                path:'/reviews',
-                element:<Testimonial></Testimonial>
-            },
-            {
-                path:'/aboutus',
-                element:<Aboutus></Aboutus>
-            }
-        ] 
-    },
-    {
-        path:'/dashboard',
-        element:<PrivateRoute><DashboardLayout></DashboardLayout></PrivateRoute>,
-        errorElement:<DisplayError></DisplayError>,
-        children:[
-            {
-                path:'/dashboard',
-                element:<MyAppointment></MyAppointment>
-            },
-            {
-                path:'/dashboard/patient',
-                element:<AdminRoute><AllPatient></AllPatient></AdminRoute>
-            },
-            {
-                path:'/dashboard/adddoctor',
-                element:<AdminRoute><AddDoctor></AddDoctor></AdminRoute>
-            },
-            {
-                path:'/dashboard/managedoctors',
-                element:<AdminRoute><ManageDoctors></ManageDoctors></AdminRoute>
-            },
-            {
-                path:'/dashboard/payment/:id',
-                element:<Payment></Payment>
-            },
-            {
-                path:'/dashboard/myschedule',
-                element:<MySchedule></MySchedule> 
-            },
-            {
-                path:'/dashboard/mypatient',
-                element:<MyPatient></MyPatient>
-            },
-            {
-                path:'/dashboard/newschedule',
-                element:<MakeSchedule></MakeSchedule>
-            },
-            // {
-            //     path:'/dashboard/vediocall/:id',
-            //     loader:({params})=>fetch(`http://localhost:5006/booking/${params.id}`),
-            //     element:<VedioCall></VedioCall>
-            // }
-        ]
-    }
-])
+  {
+    path: "/",
+    element: <Main></Main>,
+    errorElement: <DisplayError></DisplayError>,
+    children: [
+      {
+        path: "/",
+        element: <Home></Home>,
+      },
+      {
+        path: "/login",
+        element: <Login></Login>,
+      },
+      {
+        path: "/appointment",
+        element: <Appointment></Appointment>,
+      },
+      {
+        path: "/signup",
+        element: <SignUp></SignUp>,
+      },
+      {
+        path: "/reviews",
+        element: <Testimonial></Testimonial>,
+      },
+      {
+        path: "/aboutus",
+        element: <Aboutus></Aboutus>,
+      },
+    ],
+  },
+  {
+    path: "/dashboard",
+    element: (
+      <PrivateRoute>
+        <DashboardLayout></DashboardLayout>
+      </PrivateRoute>
+    ),
+    errorElement: <DisplayError></DisplayError>,
+    children: [
+      {
+        path: "/dashboard",
+        element: <MyAppointment></MyAppointment>,
+      },
+      {
+        path: "/dashboard/patient",
+        element: (
+          <AdminRoute>
+            <AllPatient></AllPatient>
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "/dashboard/adddoctor",
+        element: (
+          <AdminRoute>
+            <AddDoctor></AddDoctor>
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "/dashboard/managedoctors",
+        element: (
+          <AdminRoute>
+            <ManageDoctors></ManageDoctors>
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "/dashboard/payment/:id",
+        element: <Payment></Payment>,
+      },
+      {
+        path: "/dashboard/myschedule",
+        element: <MySchedule></MySchedule>,
+      },
+      {
+        path: "/dashboard/mypatient",
+        element: <MyPatient></MyPatient>,
+      },
+      {
+        path: "/dashboard/newschedule",
+        element: <MakeSchedule></MakeSchedule>,
+      },
+      // {
+      //     path:'/dashboard/vediocall/:id',
+      //     loader:({params})=>fetch(`http://localhost:5006/booking/${params.id}`),
+      //     element:<VedioCall></VedioCall>
+      // }
+    ],
+  },
+]);
 export default router;

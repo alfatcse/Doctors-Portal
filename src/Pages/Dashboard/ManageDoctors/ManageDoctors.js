@@ -20,7 +20,6 @@ const ManageDoctors = () => {
                     }
                 })
                 const data = await res.json();
-                console.log('ddd',data);
                 return data?.data;
             }
             catch (e) {
@@ -36,7 +35,8 @@ const ManageDoctors = () => {
             }
         }).then(res => res.json())
             .then(data => {
-                if (data.deletedCount > 0) {
+                console.log('deldata',data);
+                if (data.data.deletedCount > 0) {
                     toast.success('Doctor deleted Successfully');
                     refetch();
                 }

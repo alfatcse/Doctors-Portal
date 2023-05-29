@@ -17,7 +17,6 @@ const MyAppointment = () => {
         },
       });
       const data = await res.json();
-      console.log("ddd", data);
       return data;
     },
   });

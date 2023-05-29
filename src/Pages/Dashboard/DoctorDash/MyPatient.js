@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../Context/AuthProvider";
 import axios from "axios";
-import VedioCall from "./VedioCall";
 import { Link } from "react-router-dom";
 import { host } from "../../../Utils/APIRoutes";
 const MyPatient = () => {
@@ -16,13 +15,13 @@ const MyPatient = () => {
       method: "GET",
       headers: {
         "content-type": "application/json",
-        authorization: `bearer ${localStorage.getItem('accessToken')}`,
+        authorization: `bearer ${localStorage.getItem("accessToken")}`,
       },
       body: JSON.stringify(),
     })
     .then((res) => {
       setSpecialty(res.data?.data?.specialty);
-      console.log('ress',res.data?.data);
+      console.log("ress", res.data?.data);
       setDocName(res.data?.data?.email);
       setDoc(res.data?.data?.isverified);
     })
@@ -43,7 +42,7 @@ const MyPatient = () => {
         setPatient(res.data);
       })
       .catch((e) => console.log(e));
-  }, [specialty,docName]);
+  }, [specialty, docName]);
   return (
     <div>
       {doc === "verified" ? (

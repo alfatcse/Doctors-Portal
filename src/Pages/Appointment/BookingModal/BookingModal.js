@@ -30,7 +30,7 @@ const BookingModal = ({ treatment, selectedDate, setTreatment, refetch }) => {
       fetchData();
     }
   }, [user?.email]);
- 
+
   const [value, setValue] = useState("");
   const [date, setDate] = useState([]);
   const [slot, setSlot] = useState([]);
@@ -72,13 +72,12 @@ const BookingModal = ({ treatment, selectedDate, setTreatment, refetch }) => {
         body: JSON.stringify(booking),
       })
         .then((res) => res.json())
-        .then((data) => {
-        
+        .then(async (data) => {
           setTreatment(null);
           if (data?.status === "Success") {
+            console.log("bokking");
             toast.success("Booking Confirmed");
-            
-            fetch(`${host}/slot`, {
+            fetch(`${host}/slots`, {
               method: "PATCH",
               headers: {
                 "content-type": "application/json",
@@ -86,14 +85,17 @@ const BookingModal = ({ treatment, selectedDate, setTreatment, refetch }) => {
               body: JSON.stringify(delSlot),
             })
               .then((res) => res.json())
+              .then((data) => {
+                if (data?.status === "Success") {
+                  refetch();
+                }
+              })
               .catch((e) => console.log(e));
-            refetch();
           } else {
             toast.error(data.message);
           }
         });
     } else {
-     
       navigate("/login");
     }
   };
@@ -101,7 +103,6 @@ const BookingModal = ({ treatment, selectedDate, setTreatment, refetch }) => {
     setValue(e.target.value);
   };
   const handleSlot = (e) => {
-
     setValue1(e.target.value);
     date.docSlot.map((p) => {
       if (p.date === e.target.value) {
@@ -113,11 +114,10 @@ const BookingModal = ({ treatment, selectedDate, setTreatment, refetch }) => {
     fetch(`${host}/slot/${value}`)
       .then((res) => res.json())
       .then((data) => {
-       
         setDate(data?.data);
       });
   }, [value]);
-  
+
   return (
     <>
       <input type="checkbox" id="booking-modal" className="modal-toggle" />

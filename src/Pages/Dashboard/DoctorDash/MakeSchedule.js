@@ -20,12 +20,12 @@ const MakeSchedule = () => {
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
   const [specialty, setSpecialty] = useState();
-  
+
   const [doc, setDoc] = useState();
   axios
     .get(`${host}/user?userEmail=${user?.email}`, {
       method: "GET",
-      headers: { 
+      headers: {
         "content-type": "application/json",
         authorization: `bearer ${localStorage.getItem("accessToken")}`,
       },
@@ -102,13 +102,13 @@ const MakeSchedule = () => {
   ];
   const handleSave = () => {
     const Slotdata = {
-      docEmail:user?.email,
+      docEmail: user?.email,
       docSlot: dateSlot,
     };
-    console.log("slotdate", Slotdata);
+
     setDateSlot([]);
     setValue("");
-    fetch(`${host}/slot`, {
+    fetch(`${host}/slots`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -129,9 +129,9 @@ const MakeSchedule = () => {
     new Date(2022, 12, 20),
     { from: new Date(2022, 4, 18), to: new Date(2022, 4, 29) },
   ];
-  const getSlot=()=>{
-    console.log('dayslot');
-  }
+  const getSlot = () => {
+    console.log("dayslot");
+  };
   const [disabled, setDisabled] = useState(false);
 
   const onClick = () => {
@@ -188,64 +188,63 @@ const MakeSchedule = () => {
                                 <span className="label-text font-bold">Service Charge</span>
                             </label>
                             <input className='justify-items-center' type='text' id='price' name='price' placeholder='Price' onChange={handlePrice} ></input> */}
-                    { 
-                      daySlot.map((d) => (
-                      < >
+                    {daySlot.map((d) => (
+                      <>
                         <p className="font-bold">{d.date}</p>
                         <form
                           className="gap-2 justify-items-center"
-                         onSubmit={handleDaySlot(d)}
+                          onSubmit={handleDaySlot(d)}
                         >
                           <div className="grid grid-cols-1 md:grid-cols-2 gap-3 justify-items-center">
-                          <select   
-                            {...register("slot1", {
-                              required: "User Type is Required",
-                            })}
-                            className="select input-bordered  max-w-sm"
-                          >
-                            <option value="Select" selected>
-                              Select a Slot
-                            </option>
-                            <option  value="10.00 AM-12.00 AM">
-                              10.00 AM-12.00 AM
-                            </option>
-                            <option value="12.00 AM-02.00 PM">
-                              12.00 AM-02.00 PM
-                            </option>
-                          </select>
-                          {errors.slot1 && (
-                            <p className="text-red-500">
-                              {errors.slot1.message}
-                            </p>
-                          )}
-                          <select   
-                            {...register("slot2", {
-                              required: "User Type is Required",
-                            })}
-                            className="select input-bordered  max-w-sm"
-                          >
-                            <option value="Select" selected>
-                              Select a Slot
-                            </option>
-                            <option value="02.00 PM-03.00 PM">
-                              02.00 PM-03.00 PM
-                            </option>
-                            <option value="03.00 Pm-04.00 PM">
-                              03.00 PM-04.00 PM
-                            </option>
-                          </select>
-                          {errors.slot2 && (
-                            <p className="text-red-500">
-                              {errors.slot2.message}
-                            </p>
-                          )}
-                          <button
-                            className="btn btn-xs"
-                            value="Log In"
-                            type="submit"
-                          >
-                            Add
-                          </button> 
+                            <select
+                              {...register("slot1", {
+                                required: "User Type is Required",
+                              })}
+                              className="select input-bordered  max-w-sm"
+                            >
+                              <option value="Select" selected>
+                                Select a Slot
+                              </option>
+                              <option value="10.00 AM-12.00 AM">
+                                10.00 AM-12.00 AM
+                              </option>
+                              <option value="12.00 AM-02.00 PM">
+                                12.00 AM-02.00 PM
+                              </option>
+                            </select>
+                            {errors.slot1 && (
+                              <p className="text-red-500">
+                                {errors.slot1.message}
+                              </p>
+                            )}
+                            <select
+                              {...register("slot2", {
+                                required: "User Type is Required",
+                              })}
+                              className="select input-bordered  max-w-sm"
+                            >
+                              <option value="Select" selected>
+                                Select a Slot
+                              </option>
+                              <option value="02.00 PM-03.00 PM">
+                                02.00 PM-03.00 PM
+                              </option>
+                              <option value="03.00 Pm-04.00 PM">
+                                03.00 PM-04.00 PM
+                              </option>
+                            </select>
+                            {errors.slot2 && (
+                              <p className="text-red-500">
+                                {errors.slot2.message}
+                              </p>
+                            )}
+                            <button
+                              className="btn btn-xs"
+                              value="Log In"
+                              type="submit"
+                            >
+                              Add
+                            </button>
                           </div>
                         </form>
                       </>

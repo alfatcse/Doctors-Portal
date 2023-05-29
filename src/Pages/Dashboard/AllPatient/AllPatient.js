@@ -13,13 +13,12 @@ const AllPatient = () => {
         queryKey: ['users'],
         queryFn: async () => {
             const res = await fetch(`${host}/users?userType=Patient`,{
-                method: 'PATCH',
+                method: 'GET',
                 headers:{
                     authorization:`bearer ${localStorage.getItem('accessToken')}`
                 }
             });
             const data = await res.json();
-            console.log('pppp',data);
             return data?.data;
         }
     })
@@ -32,7 +31,8 @@ const AllPatient = () => {
         })
             .then(res => res.json())
             .then(data => {
-                if (data.modifiedCount>0) {
+                console.log('del data',data);
+                if (data.deletedCount>0) {
                     console.log(data);
                     toast.success('Modified Successfully');
                     refetch();
@@ -48,7 +48,8 @@ const AllPatient = () => {
             }
         }).then(res => res.json())
             .then(data => {
-                if (data.deletedCount > 0) {
+                console.log('del data',data);
+                if (data.data.deletedCount > 0) {
                     toast.success('Doctor deleted Successfully');
                     refetch();
                 }
@@ -62,6 +63,7 @@ const AllPatient = () => {
                     <thead>
                         <tr>
                             <th></th>
+                            <th>Photo</th>
                             <th>Name</th>
                             <th>Email</th>
                             <th>Admin</th>
@@ -73,6 +75,13 @@ const AllPatient = () => {
                             users?.map((user, i) =>
                                 <tr key={user._id}>
                                     <th>{i + 1}</th>
+                                    <td>
+                                        <div className="avatar">
+                                            <div className="w-24 rounded-full">
+                                                <img src={user.image} alt="Doctor" />
+                                            </div>
+                                        </div>
+                                    </td>
                                     <td>{user.name}</td>
                                     <td>{user.email}</td>
                                     <td>{user?.role !== 'admin' && <button onClick={() => handleMakeAdmin(user._id)} className='btn btn-xs btn-primary'>Make Admin</button>}</td>
