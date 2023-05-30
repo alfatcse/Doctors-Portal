@@ -2,7 +2,7 @@ import React from "react";
 import loader from "../../../assets/images/dribbble_1.gif";
 const Loading = () => {
   return (
-    <div role="status">
+    <div className="flex justify-center items-center h-screen" role="status">
       <svg
         aria-hidden="true"
         className="mr-2 w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
@@ -19,7 +19,8 @@ const Loading = () => {
           fill="currentFill"
         />
       </svg>
-      <span className="sr-only">Loading...
+      <span className="sr-only">
+        Loading...
         <img src={loader} alt="Loading"></img>
       </span>
     </div>

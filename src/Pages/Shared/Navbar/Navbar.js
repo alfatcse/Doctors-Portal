@@ -11,7 +11,6 @@ const Navbar = () => {
       .catch((e) => console.error(e));
   };
   const currentURL = window.location.href;
-  console.log("url", currentURL);
   const isDashboard = currentURL.includes("/dashboard");
   const manuItems = (
     <React.Fragment>

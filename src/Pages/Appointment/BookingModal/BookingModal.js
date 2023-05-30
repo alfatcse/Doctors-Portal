@@ -55,6 +55,7 @@ const BookingModal = ({ treatment, selectedDate, setTreatment, refetch }) => {
       doctor_email: doctor,
       treatment: name,
       price,
+      isPaid: false,
     };
     const delSlot = {
       doctor,
@@ -75,7 +76,6 @@ const BookingModal = ({ treatment, selectedDate, setTreatment, refetch }) => {
         .then(async (data) => {
           setTreatment(null);
           if (data?.status === "Success") {
-            console.log("bokking");
             toast.success("Booking Confirmed");
             fetch(`${host}/slots`, {
               method: "PATCH",

@@ -6,7 +6,6 @@ import useTitleHook from "../../../Hooks/useTitleHook";
 const AppointOption = ({ option, setTreatment }) => {
   useTitleHook("Appointment");
   const { name, price, slots, doctors } = option;
-
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
   const handleBooking = (op) => {

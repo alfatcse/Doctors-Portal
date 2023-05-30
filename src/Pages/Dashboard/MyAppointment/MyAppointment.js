@@ -20,7 +20,7 @@ const MyAppointment = () => {
       return data;
     },
   });
-  console.log(bookings);
+
   return (
     <div className="overflow-x-auto mb-5">
       <h1 className="text-center font-bold mb-3 text-blue-600">
