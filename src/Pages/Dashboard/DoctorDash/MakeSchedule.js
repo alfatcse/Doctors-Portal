@@ -35,18 +35,6 @@ const MakeSchedule = () => {
       setDoc(res.data?.data?.isverified);
     })
     .catch((e) => console.log(e));
-  // axios
-  //   .get(`http://localhost:5006/useremail?email=${user.email}`, {
-  //     method: "GET",
-  //     headers: {
-  //       "content-type": "application/json",
-  //     },
-  //     body: JSON.stringify(),
-  //   })
-  //   .then((res) => {
-  //     setSpecialty(res.data.specialty);
-  //   })
-  //   .catch((e) => console.log(e));
   var option = {
     weekday: "long",
     year: "numeric",
@@ -171,9 +159,23 @@ const MakeSchedule = () => {
             <label
               onClick={() => handleSlot(days)}
               htmlFor="slot-modal"
-              className="btn ml-20 btn-xs sm:btn-sm md:btn-md lg:btn-lg btn-primary"
+              className="btn ml-20  sm:btn-sm md:btn-md btn-primary"
             >
               Add Slot
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="w-6 h-6"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
             </label>
             {daySlot && (
               <>
@@ -184,10 +186,6 @@ const MakeSchedule = () => {
                 />
                 <div className="modal ">
                   <div className="modal-box ml-10 grid grid-cols-1 gap-2 justify-items-center">
-                    {/* <label className="label">
-                                <span className="label-text font-bold">Service Charge</span>
-                            </label>
-                            <input className='justify-items-center' type='text' id='price' name='price' placeholder='Price' onChange={handlePrice} ></input> */}
                     {daySlot.map((d) => (
                       <>
                         <p className="font-bold">{d.date}</p>
@@ -244,6 +242,20 @@ const MakeSchedule = () => {
                               type="submit"
                             >
                               Add
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke-width="1.5"
+                                stroke="currentColor"
+                                class="w-6 h-6"
+                              >
+                                <path
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                                />
+                              </svg>
                             </button>
                           </div>
                         </form>
@@ -253,9 +265,9 @@ const MakeSchedule = () => {
                       <label
                         htmlFor="slot-modal"
                         onClick={handleSave}
-                        className="btn"
+                        className="btn btn-sm btn-circle absolute right-2 top-2"
                       >
-                        Done
+                        X
                       </label>
                     </div>
                   </div>

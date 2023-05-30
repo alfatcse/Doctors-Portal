@@ -10,33 +10,36 @@ const Navbar = () => {
       .then(() => {})
       .catch((e) => console.error(e));
   };
+  const currentURL = window.location.href;
+  console.log("url", currentURL);
+  const isDashboard = currentURL.includes("/dashboard");
   const manuItems = (
     <React.Fragment>
       <li>
         <Link className="font-bold rounded-lg" to="/">
-         <h1 className="font-mono text-xl">Home</h1>  
+          <h1 className="font-mono text-xl">Home</h1>
         </Link>
       </li>
       <li>
         <Link className="font-bold rounded-lg" to="/appointment">
-            <h1 className="font-mono text-xl">Appointment</h1> 
+          <h1 className="font-mono text-xl">Appointment</h1>
         </Link>
       </li>
       <li>
         <Link className="font-bold rounded-lg" to="/aboutus">
-          <h1 className="font-mono text-xl">About</h1> 
+          <h1 className="font-mono text-xl">About</h1>
         </Link>
       </li>
       <li>
         <Link className="font-bold rounded-lg" to="/reviews">
-           <h1 className="font-mono text-xl">Reviews</h1> 
+          <h1 className="font-mono text-xl">Reviews</h1>
         </Link>
       </li>
       {user?.uid ? (
         <>
           <li>
             <Link className="font-bold  rounded-lg" to="/dashboard">
-               <h1 className="font-mono text-xl">DashBoard</h1> 
+              <h1 className="font-mono text-xl">DashBoard</h1>
             </Link>
           </li>
           <li>
@@ -46,14 +49,14 @@ const Navbar = () => {
               className="font-bold rounded-lg"
               to="/login"
             >
-               <h1 className="font-mono text-xl">Sign out</h1> 
+              <h1 className="font-mono text-xl">Sign out</h1>
             </button>
           </li>
         </>
       ) : (
         <li>
           <Link className="font-bold rounded-lg" to="/login">
-            <h1 className="font-mono text-xl">Login</h1> 
+            <h1 className="font-mono text-xl">Login</h1>
           </Link>
         </li>
       )}
@@ -92,10 +95,8 @@ const Navbar = () => {
               src="https://res.cloudinary.com/dmsgdonea/image/upload/v1671703837/tooth_flwazx.png"
               alt="Doctors Portal"
             ></img>
-            
-           
           </div>
-          <h1 className="font-mono text-2xl">Doctors Portal</h1> 
+          <h1 className="font-mono text-2xl">Doctors Portal</h1>
         </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
@@ -104,7 +105,7 @@ const Navbar = () => {
       <label
         htmlFor="dashboard-drawer"
         tabIndex={2}
-        className="btn btn-ghost lg:hidden"
+        className={isDashboard === false ? `hidden` : `btn btn-ghost lg:hidden`}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"

@@ -105,11 +105,6 @@ const router = createBrowserRouter([
         path: "/dashboard/newschedule",
         element: <MakeSchedule></MakeSchedule>,
       },
-      // {
-      //     path:'/dashboard/vediocall/:id',
-      //     loader:({params})=>fetch(`http://localhost:5006/booking/${params.id}`),
-      //     element:<VedioCall></VedioCall>
-      // }
     ],
   },
 ]);

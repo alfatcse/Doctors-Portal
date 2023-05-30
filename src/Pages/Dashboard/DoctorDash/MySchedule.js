@@ -68,7 +68,9 @@ const MySchedule = () => {
                         <tr>
                           <th>{i + 1}</th>
                           <td>{d.date}</td>
-                          <td className="mx-2">{d.slot}</td>
+                          <td className="mx-2">
+                            {d.slot.map((s) => `${s}, `)}
+                          </td>
                         </tr>
                       ))}
                     </tbody>
