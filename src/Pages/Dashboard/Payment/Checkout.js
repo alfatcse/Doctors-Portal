@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
-import { success } from "daisyui/src/colors";
-import Loading from "../../Shared/Loading/Loading";
 import toast from "react-hot-toast";
 import { host } from "../../../Utils/APIRoutes";
 import { useNavigate } from "react-router-dom";
@@ -65,7 +63,6 @@ const Checkout = ({ booking }) => {
       return;
     }
     if (paymentIntent.status === "succeeded") {
-      console.log("Card", card);
       const payment = {
         price,
         transactionid: paymentIntent.id,
@@ -96,7 +93,6 @@ const Checkout = ({ booking }) => {
   };
   useEffect(() => {
     if (navigate === true) {
-      console.log("nnnn");
       navigateD("/dashboard");
     }
   }, [navigate, navigateD]);

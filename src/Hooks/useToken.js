@@ -3,7 +3,6 @@ import { host } from "../Utils/APIRoutes";
 
 const useToken = (email) => {
   const [token, setToken] = useState("");
-  console.log("em", email);
   useEffect(() => {
     if (email) {
       const e = async () =>

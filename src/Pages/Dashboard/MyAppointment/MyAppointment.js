@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import { AuthContext } from "../../../Context/AuthProvider";
 import { useQuery } from "@tanstack/react-query";
-import { Button } from "react-day-picker";
 import { Link } from "react-router-dom";
 import { host } from "../../../Utils/APIRoutes";
 const MyAppointment = () => {

@@ -1,7 +1,5 @@
 import axios from "axios";
-import { th } from "date-fns/locale";
 import React, { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { AuthContext } from "../../../Context/AuthProvider";
 import { host } from "../../../Utils/APIRoutes";
 const MySchedule = () => {
@@ -18,7 +16,6 @@ const MySchedule = () => {
       body: JSON.stringify(),
     })
     .then((res) => {
-      console.log(res.data);
       setDoc(res.data.data.isverified);
     })
     .catch((e) => console.log(e));
@@ -33,12 +30,10 @@ const MySchedule = () => {
         body: JSON.stringify(),
       })
       .then((res) => {
-        console.log(res.data);
         setSchedule(res.data?.data?.docSlot);
       })
       .catch((e) => console.log(e));
   }, [user.email]);
-
   if (schedule) {
     console.log("schedule has");
   } else {

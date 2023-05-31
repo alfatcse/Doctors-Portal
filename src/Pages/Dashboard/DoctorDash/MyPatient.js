@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../Context/AuthProvider";
 import axios from "axios";
-import { Link } from "react-router-dom";
 import { host } from "../../../Utils/APIRoutes";
 const MyPatient = () => {
   const { user } = useContext(AuthContext);
@@ -21,12 +20,10 @@ const MyPatient = () => {
     })
     .then((res) => {
       setSpecialty(res.data?.data?.specialty);
-      console.log("ress", res.data?.data);
       setDocEmail(res.data?.data?.email);
       setDoc(res.data?.data?.isverified);
     })
     .catch((e) => console.log(e));
-  console.log("vv", docEmail);
   useEffect(() => {
     axios
       .get(`${host}/booking-doctor?email=${docEmail}`, {
@@ -37,7 +34,6 @@ const MyPatient = () => {
         body: JSON.stringify(),
       })
       .then((res) => {
-        console.log(res.data.data);
         setPatient(res.data.data);
       })
       .catch((e) => console.log(e));
