@@ -8,7 +8,7 @@ const MyPatient = () => {
   const [specialty, setSpecialty] = useState();
   const [patient, setPatient] = useState([]);
   const [doc, setDoc] = useState();
-  const [docName, setDocName] = useState();
+  const [docEmail, setDocEmail] = useState();
   let d = "";
   axios
     .get(`${host}/user?userEmail=${user?.email}`, {
@@ -22,15 +22,14 @@ const MyPatient = () => {
     .then((res) => {
       setSpecialty(res.data?.data?.specialty);
       console.log("ress", res.data?.data);
-      setDocName(res.data?.data?.email);
+      setDocEmail(res.data?.data?.email);
       setDoc(res.data?.data?.isverified);
     })
     .catch((e) => console.log(e));
-  console.log("vv", docName);
-  d = doc;
+  console.log("vv", docEmail);
   useEffect(() => {
     axios
-      .get(`${host}/${docName}`, {
+      .get(`${host}/booking-doctor?email=${docEmail}`, {
         method: "GET",
         headers: {
           "content-type": "application/json",
@@ -38,11 +37,11 @@ const MyPatient = () => {
         body: JSON.stringify(),
       })
       .then((res) => {
-        console.log(res.data);
-        setPatient(res.data);
+        console.log(res.data.data);
+        setPatient(res.data.data);
       })
       .catch((e) => console.log(e));
-  }, [specialty, docName]);
+  }, [specialty, docEmail]);
   return (
     <div>
       {doc === "verified" ? (
@@ -58,9 +57,8 @@ const MyPatient = () => {
                   <th>Name</th>
                   <th>Email</th>
                   <th>Date</th>
-                  <th>Payment Status</th>
                   <th>Slot</th>
-                  <th>Call</th>
+                  <th>Payment Status</th>
                 </tr>
               </thead>
               <tbody>
@@ -68,31 +66,18 @@ const MyPatient = () => {
                   <tr key={user._id}>
                     <th>{i + 1}</th>
                     <td>{user.patient_name}</td>
-                    <td>{user.email}</td>
-                    <td>{user.AppointmentDate}</td>
+                    <td>{user.patient_email}</td>
+                    <td>{user.appointmentData.AppointmentDate}</td>
+                    <td>{user.appointmentData.slot}</td>
                     <td>
-                      {user?.paid ? (
-                        <>
-                          <h1>paid</h1>
-                        </>
+                      {user.appointmentData.isPaid ? (
+                        <span className="text-green-500 mx-2 font-bold">
+                          Paid
+                        </span>
                       ) : (
-                        <h1>Not paid</h1>
-                      )}
-                    </td>
-                    <td>{user.slot}</td>
-                    <td>
-                      {user?.paid ? (
-                        <>
-                          <Link to={`/dashboard/vediocall/${user._id}`}>
-                            <button className="btn btn-xs btn-primary">
-                              Call
-                            </button>
-                          </Link>
-                        </>
-                      ) : (
-                        <button disabled className="btn btn-xs  btn-primary">
-                          Call
-                        </button>
+                        <span className="text-red-500 mx-2 font-bold">
+                          Not Paid
+                        </span>
                       )}
                     </td>
                   </tr>

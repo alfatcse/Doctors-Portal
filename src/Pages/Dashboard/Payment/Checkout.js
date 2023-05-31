@@ -1,16 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import { success } from "daisyui/src/colors";
+import Loading from "../../Shared/Loading/Loading";
+import toast from "react-hot-toast";
 import { host } from "../../../Utils/APIRoutes";
+import { useNavigate } from "react-router-dom";
 const Checkout = ({ booking }) => {
   const [cardError, setCardError] = useState("");
   const [Success, setSuccess] = useState("");
   const [transactionId, setTransactionId] = useState("");
   const [processing, setProcessing] = useState(false);
+  const [navigate, setNavigate] = useState(false);
   const stripe = useStripe();
   const elements = useElements();
   const { price, email, patient_name, _id } = booking;
   const [clientSecret, setClientSecret] = useState("");
+  const navigateD = useNavigate();
   useEffect(() => {
     // Create PaymentIntent as soon as the page loads
     fetch(`${host}/create-payment-intent`, {
@@ -25,6 +30,7 @@ const Checkout = ({ booking }) => {
       .then((data) => setClientSecret(data.clientSecret));
   }, [price]);
   const handleSubmit = async (event) => {
+    setProcessing(true);
     event.preventDefault();
     if (!stripe || !elements) {
       return;
@@ -44,7 +50,6 @@ const Checkout = ({ booking }) => {
       setCardError("");
     }
     setSuccess("");
-    setProcessing(true);
     const { paymentIntent, error: confirmError } =
       await stripe.confirmCardPayment(clientSecret, {
         payment_method: {
@@ -77,16 +82,24 @@ const Checkout = ({ booking }) => {
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
-          if (data.insertedId) {
+          console.log("payment data", data);
+          if (data.status === "Success") {
             setSuccess("Payment Completed");
             setTransactionId(paymentIntent.id);
+            toast.success("Payment Confirmed");
+            setNavigate(true);
           }
         });
     }
     console.log("paymentIntent", paymentIntent);
     setProcessing(false);
   };
+  useEffect(() => {
+    if (navigate === true) {
+      console.log("nnnn");
+      navigateD("/dashboard");
+    }
+  }, [navigate, navigateD]);
   return (
     <>
       <form onSubmit={handleSubmit}>

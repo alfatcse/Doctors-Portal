@@ -52,7 +52,7 @@ const MySchedule = () => {
             <>
               <div>
                 <h1 className="text-center text-2xl font-bold mb-3 text-blue-600">
-                  My Schedule
+                  My Free Schedule
                 </h1>
                 <div className="overflow-x-auto">
                   <table className="table w-full">
