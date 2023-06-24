@@ -1,33 +1,22 @@
+# Developer Portfolio
 
-### `Live Link`
-Open [http://docors-portal.web.app](https://doctors-portal-be73e.web.app) to view it in your browser.
-### `To experience the Admin role Please use the following credential`
-`admin user email: admin@a.com`
+### As a developer, my portfolio is a reflection of my skills, experience, resume and passion for creating innovative and impactful solutions. It showcases my journey in the world of software development and provides a glimpse into the projects I have worked on.
 
-`admin password: admin1234#`
-### `Key Feature of the project`
-`1.Register new user as doctor or patient`
+Within my portfolio, you will find a collection of diverse projects that demonstrate my expertise in various programming languages, frameworks, and tools. From web development to mobile applications, each project represents a unique challenge I have encountered and successfully tackled.
 
-![alt text](https://i.ibb.co/XFkF5Pn/Screenshot-from-2023-01-04-10-53-45.png)
+Through detailed project descriptions, I aim to convey the problem-solving approach I adopt in my work. I highlight the technical intricacies I encountered, the strategies I employed, and the tangible outcomes achieved. By sharing these insights, I strive to provide potential clients and employers with a deeper understanding of my abilities and the value I can bring to their projects.
 
-`2.Loged in patient can book appointment and after successful payment a confirmation email is sent`
-<p align="center">
-  <img src="https://i.ibb.co/Xz62MKt/Screenshot-from-2023-01-04-10-41-38.png" width="650" alt="accessibility text">
-</p>
+In addition to showcasing my technical skills, my portfolio also emphasizes my commitment to collaboration and continuous learning. I provide links to my GitHub repositories, where I actively contribute to open-source projects and engage in knowledge sharing within the developer community. This collaborative mindset not only allows me to expand my skills but also demonstrates my dedication to staying at the forefront of industry trends.
 
-`3.loged in doctor can publish new slot along with date and time`
-<p align="center">
-  <img src="https://i.ibb.co/j8Yd7xp/Screenshot-from-2023-01-04-10-57-48.png" width="650" alt="accessibility text">
-</p>
+Overall, my developer portfolio serves as a comprehensive representation of my capabilities and aspirations. It is a testament to my dedication to crafting high-quality solutions, my enthusiasm for continuous growth, and my unwavering commitment to delivering value to those I collaborate with. 
 
-`4.loged in doctor can also view the patients who booked his slots`
-    <p align="center">
-  <img src="https://i.ibb.co/nP0Rh3m/Screenshot-from-2023-01-04-11-02-53.png" width="650" alt="accessibility text">
-</p>
-`5.Admin can view all users and can change the role as 'admin' or 'doctor' of any user or as 'doctor' of any user who have registered as doctor`
- <p align="center">
-  <img src="https://i.ibb.co/BCbR7xQ/Screenshot-from-2023-01-04-11-05-49.png" width="650" alt="accessibility text">
-</p>
+---
 
-`6.Admin can also delete any user`
+# Demo :movie_camera:
+
+![Appreciate Nature (5 second video) (1)](https://media.githubusercontent.com/media/alfatcse/gifTest/main/portfolio.gif)
+
+## View live demo: [www.alfats-portfolio.com](https://alfats-portfolio.onrender.com/)
+
+
 
