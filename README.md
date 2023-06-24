@@ -20,7 +20,7 @@
 
 ---
 
-## View live demo: [www.doctors-portal.com](https://doctors-portal-be73e.web.app/)
+## View live demo: [www.doctor's-portal.com](https://doctors-portal-be73e.web.app/)
 
 # Demo :movie_camera:
 
