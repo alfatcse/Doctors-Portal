@@ -4,6 +4,7 @@
 
 ### Project Features
 **User Authentication:** Doctor's-Portal offers a secure and reliable user authentication system. Patients can create accounts, log in, and access personalized features, while doctors can register, log in, and manage their professional profiles.
+
 **Patient Dashboard:** Patients have access to a user-friendly dashboard upon logging in. They can view their appointment history, manage personal information, and schedule appointments with available doctors.
 
 **Doctor Dashboard:** Doctors have a dedicated dashboard that allows them to manage their professional profile, set availability slots for appointments, and view their appointment history. They can also access patient medical records securely.
