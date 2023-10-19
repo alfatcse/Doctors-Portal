@@ -9,7 +9,6 @@ import { host } from "../../../Utils/APIRoutes";
 const AvailableAppointment = ({ selectedDate }) => {
   const [treatment, setTreatment] = useState(null);
   const date = format(selectedDate, "PP");
-
   const {
     data: appointmentOptions = [],
     refetch,
@@ -19,7 +18,6 @@ const AvailableAppointment = ({ selectedDate }) => {
     queryFn: async () => {
       const res = await fetch(`${host}/appointmentOptions`);
       const data = await res.json();
-
       return data.data;
     },
   });

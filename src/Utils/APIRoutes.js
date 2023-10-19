@@ -1,1 +1,1 @@
-export const host = process.env.REACT_HOST_LINK;
+export const host = process.env.REACT_APP_HOST_LINK;

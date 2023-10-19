@@ -28,6 +28,7 @@ const SignUp = () => {
   const formData = new FormData();
   const [showPassword, setShowPassword] = useState(false);
   const imageHostKey = process.env.REACT_APP_imgbb_key;
+  console.log(imageHostKey);
   const { data: specialties, isLoading } = useQuery({
     queryKey: ["specialty"],
     queryFn: async () => {
