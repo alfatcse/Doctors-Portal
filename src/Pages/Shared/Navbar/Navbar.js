@@ -91,7 +91,7 @@ const Navbar = () => {
         <Link to="/" className="btn btn-ghost normal-case text-xl">
           <div className="w-8 rounded avatar">
             <img
-              src="https://res.cloudinary.com/dmsgdonea/image/upload/v1671703837/tooth_flwazx.png"
+              src="https://i.ibb.co/Y3pY6WR/tooth.png"
               alt="Doctors Portal"
             ></img>
           </div>
