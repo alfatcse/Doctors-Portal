@@ -21,7 +21,7 @@
 
 ---
 
-## View live demo: [www.doctor's-portal.com](https://doctors-portal-be73e.web.app/)
+## View live demo: [www.doctor's-portal.com](https://doctors-portal-4ref.onrender.com/)
 
 # Demo :movie_camera:
 
